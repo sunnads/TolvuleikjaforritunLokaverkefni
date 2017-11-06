@@ -1,4 +1,1 @@
-´.idea >> .gitignore
- git rm -r --cached .idea
-echo ´.idea
 .idea
