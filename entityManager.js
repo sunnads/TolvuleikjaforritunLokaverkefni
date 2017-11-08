@@ -2,7 +2,7 @@
 
 entityManager.js
 
-A module which handles arbitrary entity-management for "Asteroids"
+A module which handles arbitrary entity-management for "Pacman"
 
 
 We create this module as a single global object, and initialise it
@@ -27,23 +27,22 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-_rocks   : [],
-_bullets : [],
-_ships   : [],
-
-_bShowRocks : true,
+_ghosts  : [],
+_pellets : [],  // food for pacman
+_pills   : [],  // power up pills for pacman
+_pacman  : [],
 
 // "PRIVATE" METHODS
 
-_generateRocks : function() {
+_generateGhosts : function() {
     var i,
-        NUM_ROCKS = 4;
+        NUM_GHOSTS = 4;
 
-    for (i = 0; i < NUM_ROCKS; ++i) {
-        this.generateRock();
+    for (i = 0; i < NUM_GHOSTS; ++i) {
+        this.generateGhost();
     }
 },
-
+/*
 _findNearestShip : function(posX, posY) {
     var closestShip = null,
         closestIndex = -1,
@@ -69,7 +68,7 @@ _findNearestShip : function(posX, posY) {
         theIndex: closestIndex
     };
 },
-
+*/
 _forEachOf: function(aCategory, fn) {
     for (var i = 0; i < aCategory.length; ++i) {
         fn.call(aCategory[i]);
@@ -87,14 +86,14 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._rocks, this._bullets, this._ships];
+    this._categories = [this._ghosts, this._pellets, this._pills, this._pacman];
 },
 
 init: function() {
-    this._generateRocks();
-    //this._generateShip();
+    this._generateGhosts();
+    //this._generatePacman();
 },
-
+/*
 fireBullet: function(cx, cy, velX, velY, rotation) {
     this._bullets.push(new Bullet({
         cx   : cx,
@@ -105,15 +104,15 @@ fireBullet: function(cx, cy, velX, velY, rotation) {
         rotation : rotation
     }));
 },
-
-generateRock : function(descr) {
-    this._rocks.push(new Rock(descr));
+*/
+generateGhost : function(descr) {
+    this._ghosts.push(new Ghost(descr));
 },
 
-generateShip : function(descr) {
-    this._ships.push(new Ship(descr));
+generatePacman : function(descr) {
+    this._pacman.push(new Pac_man(descr));
 },
-
+/*
 killNearestShip : function(xPos, yPos) {
     var theShip = this._findNearestShip(xPos, yPos).theShip;
     if (theShip) {
@@ -139,7 +138,7 @@ haltShips: function() {
 toggleRocks: function() {
     this._bShowRocks = !this._bShowRocks;
 },
-
+*/
 update: function(du) {
 
     for (var c = 0; c < this._categories.length; ++c) {
@@ -162,7 +161,7 @@ update: function(du) {
         }
     }
     
-    if (this._rocks.length === 0) this._generateRocks();
+    if (this._ghosts.length === 0) this._generateGhosts();
 
 },
 
@@ -173,11 +172,11 @@ render: function(ctx) {
     for (var c = 0; c < this._categories.length; ++c) {
 
         var aCategory = this._categories[c];
-
+/*
         if (!this._bShowRocks && 
             aCategory == this._rocks)
             continue;
-
+*/
         for (var i = 0; i < aCategory.length; ++i) {
 
             aCategory[i].render(ctx);
