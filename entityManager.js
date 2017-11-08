@@ -35,40 +35,12 @@ _bShowRocks : true,
 
 // "PRIVATE" METHODS
 
-_generateRocks : function() {
-    var i,
-        NUM_ROCKS = 4;
+_generateMaze : function() {
 
-    for (i = 0; i < NUM_ROCKS; ++i) {
-        this.generateRock();
-    }
+        this.generateMaze();
 },
 
-_findNearestShip : function(posX, posY) {
-    var closestShip = null,
-        closestIndex = -1,
-        closestSq = 1000 * 1000;
 
-    for (var i = 0; i < this._ships.length; ++i) {
-
-        var thisShip = this._ships[i];
-        var shipPos = thisShip.getPos();
-        var distSq = util.wrappedDistSq(
-            shipPos.posX, shipPos.posY, 
-            posX, posY,
-            g_canvas.width, g_canvas.height);
-
-        if (distSq < closestSq) {
-            closestShip = thisShip;
-            closestIndex = i;
-            closestSq = distSq;
-        }
-    }
-    return {
-        theShip : closestShip,
-        theIndex: closestIndex
-    };
-},
 
 _forEachOf: function(aCategory, fn) {
     for (var i = 0; i < aCategory.length; ++i) {
@@ -91,7 +63,7 @@ deferredSetup : function () {
 },
 
 init: function() {
-    this._generateRocks();
+    this._generateMaze();
     //this._generateShip();
 },
 
@@ -106,8 +78,8 @@ fireBullet: function(cx, cy, velX, velY, rotation) {
     }));
 },
 
-generateRock : function(descr) {
-    this._rocks.push(new Rock(descr));
+generateMaze : function(descr) {
+    this._Maze.push(new Maze(descr));
 },
 
 generateShip : function(descr) {

@@ -3,31 +3,6 @@
 // =========
 /*
 
-A sort-of-playable version of the classic arcade game.
-
-
-HOMEWORK INSTRUCTIONS:
-
-You have some "TODO"s to fill in again, particularly in:
-
-spatialManager.js
-
-But also, to a lesser extent, in:
-
-Rock.js
-Bullet.js
-Ship.js
-
-
-...Basically, you need to implement the core of the spatialManager,
-and modify the Rock/Bullet/Ship to register (and unregister)
-with it correctly, so that they can participate in collisions.
-
-Be sure to test the diagnostic rendering for the spatialManager,
-as toggled by the 'X' key. We rely on that for marking. My default
-implementation will work for the "obvious" approach, but you might
-need to tweak it if you do something "non-obvious" in yours.
-*/
 
 "use strict";
 
@@ -46,11 +21,14 @@ var g_ctx = g_canvas.getContext("2d");
 // CREATE INITIAL SHIPS
 // ====================
 
-function createInitialShips() {
+function createInitialMaze() {
 
-    entityManager.generateShip({
+   /* entityManager.generateShip({
         cx : 200,
         cy : 200
+    });
+*/
+    entityManager.generateMaze({
     });
     
 }
@@ -85,64 +63,20 @@ function updateSimulation(du) {
     
     entityManager.update(du);
 
-    // Prevent perpetual firing!
-    eatKey(Ship.prototype.KEY_FIRE);
-}
 
 // GAME-SPECIFIC DIAGNOSTICS
-
-var g_allowMixedActions = true;
-var g_useGravity = false;
-var g_useAveVel = true;
-var g_renderSpatialDebug = false;
-
-var KEY_MIXED   = keyCode('M');;
-var KEY_GRAVITY = keyCode('G');
-var KEY_AVE_VEL = keyCode('V');
-var KEY_SPATIAL = keyCode('X');
 
 var KEY_HALT  = keyCode('H');
 var KEY_RESET = keyCode('R');
 
-var KEY_0 = keyCode('0');
-
-var KEY_1 = keyCode('1');
-var KEY_2 = keyCode('2');
-
-var KEY_K = keyCode('K');
 
 function processDiagnostics() {
 
-    if (eatKey(KEY_MIXED))
-        g_allowMixedActions = !g_allowMixedActions;
 
-    if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
+    if (eatKey(KEY_HALT)) entityManager.haltGame();
 
-    if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
+    if (eatKey(KEY_RESET)) entityManager.resetGame();
 
-    if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
-
-    if (eatKey(KEY_HALT)) entityManager.haltShips();
-
-    if (eatKey(KEY_RESET)) entityManager.resetShips();
-
-    if (eatKey(KEY_0)) entityManager.toggleRocks();
-
-    if (eatKey(KEY_1)) entityManager.generateShip({
-        cx : g_mouseX,
-        cy : g_mouseY,
-        
-        sprite : g_sprites.ship});
-
-    if (eatKey(KEY_2)) entityManager.generateShip({
-        cx : g_mouseX,
-        cy : g_mouseY,
-        
-        sprite : g_sprites.ship2
-        });
-
-    if (eatKey(KEY_K)) entityManager.killNearestShip(
-        g_mouseX, g_mouseY);
 }
 
 
@@ -177,9 +111,29 @@ var g_images = {};
 function requestPreloads() {
 
     var requiredImages = {
-        ship   : "https://notendur.hi.is/~pk/308G/images/ship.png",
-        ship2  : "https://notendur.hi.is/~pk/308G/images/ship_2.png",
-        rock   : "https://notendur.hi.is/~pk/308G/images/rock.png"
+        patman1   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/patman1.png",
+        patman2   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/patman2.png",
+        patman3   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/patman3.png",
+       // tiles0    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles0.jpg",
+        tiles1    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles1.jpg",
+        tiles2    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles2.jpg",
+        tiles3    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles3.jpg",
+        tiles4    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles4.jpg",
+        tiles5    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles5.jpg",
+        tiles6    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles6.jpg",
+        tiles7    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles7.jpg",
+        tiles8    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles8.jpg",
+        tiles9    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles9.jpg",
+        tiles10   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles10.jpg",
+        tiles11   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles11.jpg",
+        tiles12   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles12.jpg",
+        tiles13   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles13.jpg",
+        tiles14   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles14.jpg",
+        tiles15   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles15.jpg",
+        tiles16   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles16.jpg",
+        tiles17   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles17.jpg",
+        tiles18   : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles18.jpg",
+
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -189,15 +143,31 @@ var g_sprites = {};
 
 function preloadDone() {
 
-    g_sprites.ship  = new Sprite(g_images.ship);
-    g_sprites.ship2 = new Sprite(g_images.ship2);
-    g_sprites.rock  = new Sprite(g_images.rock);
+    g_sprites.patman1  = new Sprite(g_images.patman1);
+    g_sprites.patman2 = new Sprite(g_images.patman2);
+    g_sprites.patman3  = new Sprite(g_images.patman3);
 
-    g_sprites.bullet = new Sprite(g_images.ship);
-    g_sprites.bullet.scale = 0.25;
+    g_sprites.tiles1 = new Sprite(g_images.tiles1);
+    g_sprites.tiles2 = new Sprite(g_images.tiles2);
+    g_sprites.tiles3 = new Sprite(g_images.tiles3);
+    g_sprites.tiles4 = new Sprite(g_images.tiles4);
+    g_sprites.tiles5 = new Sprite(g_images.tiles5);
+    g_sprites.tiles6 = new Sprite(g_images.tiles6);
+    g_sprites.tiles7 = new Sprite(g_images.tiles7);
+    g_sprites.tiles8 = new Sprite(g_images.tiles8);
+    g_sprites.tiles9 = new Sprite(g_images.tiles9);
+    g_sprites.tiles10 = new Sprite(g_images.tiles10);
+    g_sprites.tiles11 = new Sprite(g_images.tiles11);
+    g_sprites.tiles12 = new Sprite(g_images.tiles12);
+    g_sprites.tiles13 = new Sprite(g_images.tiles13);
+    g_sprites.tiles14 = new Sprite(g_images.tiles14);
+    g_sprites.tiles15 = new Sprite(g_images.tiles15);
+    g_sprites.tiles16 = new Sprite(g_images.tiles16);
+    g_sprites.tiles17 = new Sprite(g_images.tiles17);
+    g_sprites.tiles18 = new Sprite(g_images.tiles18);
 
     entityManager.init();
-    createInitialShips();
+    createInitialMaze();
 
     main.init();
 }

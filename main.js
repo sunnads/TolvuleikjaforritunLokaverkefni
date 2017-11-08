@@ -70,22 +70,22 @@ main._iterCore = function (dt) {
     render(g_ctx);
 };
 
-main._isGameOver = false;
+    main._isGameOver = false;
 
-main.gameOver = function () {
+    main.gameOver = function () {
     this._isGameOver = true;
     console.log("gameOver: quitting...");
 };
 
 // Simple voluntary quit mechanism
 //
-var KEY_QUIT = 'Q'.charCodeAt(0);
-function requestedQuit() {
+    var KEY_QUIT = 'Q'.charCodeAt(0);
+    function requestedQuit() {
     return keys[KEY_QUIT];
 }
 
 // Annoying shim for Firefox and Safari
-window.requestAnimationFrame = 
+    window.requestAnimationFrame =
     window.requestAnimationFrame ||        // Chrome
     window.mozRequestAnimationFrame ||     // Firefox
     window.webkitRequestAnimationFrame;    // Safari
