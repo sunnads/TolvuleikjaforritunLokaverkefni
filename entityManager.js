@@ -32,7 +32,14 @@ _pellets : [],  // food for pacman
 _pills   : [],  // power up pills for pacman
 _pacman  : [],
 
+_maze : [],
+
 // "PRIVATE" METHODS
+
+_generateMaze : function() {
+
+        this.generateMaze();
+},
 
 _generateGhosts : function() {
     var i,
@@ -42,33 +49,15 @@ _generateGhosts : function() {
         this.generateGhost();
     }
 },
-/*
-_findNearestShip : function(posX, posY) {
-    var closestShip = null,
-        closestIndex = -1,
-        closestSq = 1000 * 1000;
 
-    for (var i = 0; i < this._ships.length; ++i) {
 
-        var thisShip = this._ships[i];
-        var shipPos = thisShip.getPos();
-        var distSq = util.wrappedDistSq(
-            shipPos.posX, shipPos.posY, 
-            posX, posY,
-            g_canvas.width, g_canvas.height);
+_generatePacman  : function () {
 
-        if (distSq < closestSq) {
-            closestShip = thisShip;
-            closestIndex = i;
-            closestSq = distSq;
-        }
-    }
-    return {
-        theShip : closestShip,
-        theIndex: closestIndex
-    };
+        this.generatePacman();
 },
-*/
+
+
+
 _forEachOf: function(aCategory, fn) {
     for (var i = 0; i < aCategory.length; ++i) {
         fn.call(aCategory[i]);
@@ -86,84 +75,58 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._ghosts, this._pellets, this._pills, this._pacman];
+
+    this._categories = [this._maze, this._ghosts, this._pacman, this._pellets, this._pills];
 },
 
 init: function() {
+    this._generateMaze();
     this._generateGhosts();
-    //this._generatePacman();
+    this._generatePacman();
 },
-/*
-fireBullet: function(cx, cy, velX, velY, rotation) {
-    this._bullets.push(new Bullet({
-        cx   : cx,
-        cy   : cy,
-        velX : velX,
-        velY : velY,
 
-        rotation : rotation
-    }));
+generateMaze : function(descr) {
+    this._Maze.push(new Maze(descr));
 },
-*/
+
 generateGhost : function(descr) {
-    this._ghosts.push(new Ghost(descr));
-},
+        this._ghosts.push(new Ghost(descr));
+    },
 
 generatePacman : function(descr) {
     this._pacman.push(new Pac_man(descr));
 },
-/*
-killNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.kill();
-    }
-},
 
-yoinkNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.setPos(xPos, yPos);
-    }
-},
 
-resetShips: function() {
-    this._forEachOf(this._ships, Ship.prototype.reset);
-},
+generatePacman : function(descr) {
+        this._pacman.push(new Pac_man(descr));
+    },
 
-haltShips: function() {
-    this._forEachOf(this._ships, Ship.prototype.halt);
-},	
+  update: function(du) {
 
-toggleRocks: function() {
-    this._bShowRocks = !this._bShowRocks;
-},
-*/
-update: function(du) {
+        for (var c = 0; c < this._categories.length; ++c) {
 
-    for (var c = 0; c < this._categories.length; ++c) {
+            var aCategory = this._categories[c];
+            var i = 0;
 
-        var aCategory = this._categories[c];
-        var i = 0;
+            while (i < aCategory.length) {
 
-        while (i < aCategory.length) {
+                var status = aCategory[i].update(du);
 
-            var status = aCategory[i].update(du);
-
-            if (status === this.KILL_ME_NOW) {
-                // remove the dead guy, and shuffle the others down to
-                // prevent a confusing gap from appearing in the array
-                aCategory.splice(i,1);
-            }
-            else {
-                ++i;
+                if (status === this.KILL_ME_NOW) {
+                    // remove the dead guy, and shuffle the others down to
+                    // prevent a confusing gap from appearing in the array
+                    aCategory.splice(i,1);
+                }
+                else {
+                    ++i;
+                }
             }
         }
-    }
-    
-    if (this._ghosts.length === 0) this._generateGhosts();
 
-},
+        if (this._ghosts.length === 0) this._generateGhosts();
+
+    },
 
 render: function(ctx) {
 
@@ -172,11 +135,11 @@ render: function(ctx) {
     for (var c = 0; c < this._categories.length; ++c) {
 
         var aCategory = this._categories[c];
-/*
+
         if (!this._bShowRocks && 
             aCategory == this._rocks)
             continue;
-*/
+
         for (var i = 0; i < aCategory.length; ++i) {
 
             aCategory[i].render(ctx);
