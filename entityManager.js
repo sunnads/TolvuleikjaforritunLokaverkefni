@@ -27,10 +27,10 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-_ghosts  : [],
-_pellets : [],
-_pills   : [],
-_pacman  : [],
+_ghosts  : [],  // draugarnir
+_pellets : [],  // maturinn fyrir pacman
+_pills   : [],  // power up pillur fyrir pacman
+_pacman  : [],  // aðalleikarinn
 
 // "PRIVATE" METHODS
 
