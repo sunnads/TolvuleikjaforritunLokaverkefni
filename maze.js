@@ -13,6 +13,7 @@
 var mazeX = 0;
 var mazeY = 0;
 
+
 //lína 358
 // A generic contructor which accepts an arbitrary descriptor object
 function Maze(descr) {
@@ -22,7 +23,6 @@ function Maze(descr) {
 
 
     // Default sprite and scale, if not otherwise specifies
-    this.scale  = this.scale  || 1;
 
     /*
      // Diagnostics to check inheritance stuff
@@ -35,7 +35,6 @@ Maze.prototype = new Entity();
 
 var g_maze = [
     {
-    maze     : 3, //veit ekki allveg afhverju 3
     //drawing the maze
     /*
      a = horn upp hægri
@@ -60,20 +59,20 @@ var g_maze = [
      s = kross
      */
     mazeCode : [
-        "abbbbhbbbbbbbcxkbbbl",
-        "vo   e            ov",
-        "v ac   kbbbk kbbbc v",
-        "v v  p             v",
-        "v v kwc p abbl p p v",
-        "e v     v vxxf v v e",
-        "x v   p e vxxt v v x",
-        "p jbc e   jhhg e v p",
-        "v       p  x     v v",
-        "ubc p p jbbbbc p e v",
-        "v   v v        v   v",
-        "v s e jc kbbbc e s v",
-        "v                  v",
-        "jbbbbbbbbbbbbcxkbbby"
+        [a,b,b,b,b,h,b,b,b,b,b,b,b,c,x,k,b,b,b,l],
+        [v,o, , , ,e, , , , , , , , , , , , ,o,v],
+        [v, ,a,c, , , ,k,b,b,b,k, ,k,b,b,b,c, ,v],
+        [v, ,v, , ,p, , , , , , , , , , , , , ,v],
+        [v, ,v, ,k,w,c, ,p, ,a,b,b,l, ,p, ,p, ,v],
+        [e, ,v, , , , , ,v, ,v,x,x,f, ,v, ,v, ,e],
+        [x, ,v, , , ,p, ,e, ,v,x,x,t, ,v, ,v, ,x],
+        [p, ,j,b,c, ,e, , , ,j,h,h,g, ,e, ,v, ,p],
+        [v, , , , , , , ,p, , ,x, , , , , ,v, ,v],
+        [u,b,c, ,p, ,p, ,j,b,b,b,b,c, ,p, ,e, ,v],
+        [v, , , ,v, ,v, , , , , , , , ,v, , , ,v],
+        [v, ,s, ,e, ,j,c, ,k,b,b,b,c, ,e, ,s, ,v],
+        [v,o, , , , , , , , , , , , , , , , ,o,v],
+        [j,b,b,b,b,b,b,b,b,b,b,b,b,c,x,k,b,b,b,y]
     ],
     //where patman can move
     /*
@@ -89,37 +88,59 @@ var g_maze = [
      */
 
     mazeGrid : [
-        "00000000000000000000",
-        "01002010000060300020",
-        "00004050000000000000",
-        "00017086060030606040",
-        "00000000000000000000",
-        "00046605000000000000",
-        "05083500000000000040",
-        "00000004050000000000",
-        "08060905080000905000",
-        "00000000000000000000",
-        "01050008600000504050",
-        "00000000000000000000",
-        "08030300300000303070",
-        "00000000000000000000"
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,1,0,0,2,0,1,0,0,0,0,0,6,0,3,0,0,0,2,0],
+        [0,0,0,0,4,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,1,7,0,8,6,0,6,0,0,3,0,6,0,6,0,4,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,4,6,6,0,5,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,5,0,8,3,5,0,0,0,0,0,0,0,0,0,0,0,0,4,0],
+        [0,0,0,0,0,0,0,4,0,5,0,0,0,0,0,0,0,0,0,0],
+        [0,8,0,6,0,9,0,5,0,8,0,0,0,0,9,0,5,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,1,0,5,0,0,0,8,6,0,0,0,0,0,5,0,4,0,5,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,8,0,3,0,3,0,0,3,0,0,0,0,0,3,0,3,0,7,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         // gera svona og ákveða hvaða tala segir til um hvert meigi fara
     ]
 }
 ];
 // ef við viljum fleiri borð þá gera aftur allt þetta 3 hér fyrir ofan
+var tileType =[{
+    a : "tiles7",
+    b : "tiles6",
+    h : "tiles13",
+    c : "tiles2",
+    k : "tiles4",
+    l : "tiles8",
+    v : "tiles5",
+    p : "tiles3",
+    e : "tiles1",
+    w : "tiles11",
+    t : "tiles18",
+    f : "tiles17",
+    g : "tiles16",
+    j : "tiles10",
+    y : "tiles9",
+    u : "tiles12",
+    i : "tiles14",
+    s : "tiles15",
+    x : "tiles0"
+}];
+function findTile(letter){
+return g_sprite.letter;
+};
 
-var mazeTiles = new Array (
-    'a', 'tiles7', 'b', 'tiles6', 'h', 'tiles13', 'c', 'tiles2', 'k', 'tiles4',
-    'l', 'tiles8', 'v', 'tiles5', 'p', 'tiles3', 'e', 'tiles1', 'w', 'tiles11',
-    't', 'tiles18', 'f', 'tiles17', 'g', 'tiles16', 'j', 'tiles10', 'y', 'tiles9'
-    'u', 'tiles12', 'i', 's', 'tiles14', 'tiles15', 'x', 'tiles0'
-);
+function buildMaze(k) {
+    var m = [k];
+    for(var r = 0; r<m.mazeCode.length;r++){
+        for(var c = 0; c<m.mazeCode[r].length;c++){
 
-function buildMaze(a) {
-    var m = Maze[a];
-    food = 0;
-}
+            g_sprites.tileType.(m.mazeCode[r][c])
+        }
+    }
+};
 
 Maze.prototype.update = function (du) {
 
