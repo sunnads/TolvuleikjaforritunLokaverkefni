@@ -16,7 +16,8 @@ var wallY = 0;
 
 //lína 358
 
-var g_wall = {
+var g_wall = [
+    {
     wall     : 3, //veit ekki allveg afhverju 3
     //drawing the walls
     /*
@@ -71,6 +72,7 @@ var g_wall = {
      */
 
     wallGrid : [
+        // segir hvert hann meigi fara (breyta um stefnu)
         "00000000000000000000"
         "01002010000060300020"
         "00004050000000000000"
@@ -85,9 +87,9 @@ var g_wall = {
         "00000000000000000000"
         "08030300300000303070"
         "00000000000000000000"
-        // gera svona og ákveða hvaða tala segir til um hvert meigi fara
-    ];
+    ]
 }
+];
 // ef við viljum fleiri borð þá gera aftur allt þetta 3 hér fyrir ofan
 
 var wallPice = new Array (
