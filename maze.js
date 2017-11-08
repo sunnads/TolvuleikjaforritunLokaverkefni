@@ -90,6 +90,7 @@ var g_wall = [
     ]
 }
 ];
+
 // ef við viljum fleiri borð þá gera aftur allt þetta 3 hér fyrir ofan
 
 var wallPice = new Array (
