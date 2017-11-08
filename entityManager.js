@@ -27,11 +27,11 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-_rocks   : [],
-_bullets : [],
-_ships   : [],
-
-_bShowRocks : true,
+_ghosts  : [],
+_pellets : [],  // food for pacman
+_pills   : [],  // power up pills for pacman
+_pacman  : [],
+_maze : [],
 
 // "PRIVATE" METHODS
 
@@ -40,6 +40,20 @@ _generateMaze : function() {
         this.generateMaze();
 },
 
+
+_generateGhosts : function() {
+    var i,
+        NUM_GHOSTS = 4;
+
+    for (i = 0; i < NUM_GHOSTS; ++i) {
+        this.generateGhost();
+    }
+},
+
+_generatePacman  : function () {
+
+        this.generatePacman();
+},
 
 
 _forEachOf: function(aCategory, fn) {
@@ -59,84 +73,52 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._rocks, this._bullets, this._ships];
+    this._categories = [this._maze, this._pacman, this._pellets, this._pills];
 },
 
 init: function() {
     this._generateMaze();
-    //this._generateShip();
-},
-
-fireBullet: function(cx, cy, velX, velY, rotation) {
-    this._bullets.push(new Bullet({
-        cx   : cx,
-        cy   : cy,
-        velX : velX,
-        velY : velY,
-
-        rotation : rotation
-    }));
+    this._generateGhosts();
+    this._generatePacman();
 },
 
 generateMaze : function(descr) {
     this._Maze.push(new Maze(descr));
 },
 
-generateShip : function(descr) {
-    this._ships.push(new Ship(descr));
-},
+generateGhost : function(descr) {
+        this._ghosts.push(new Ghost(descr));
+    },
 
-killNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.kill();
-    }
-},
+generatePacman : function(descr) {
+        this._pacman.push(new Pac_man(descr));
+    },
 
-yoinkNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.setPos(xPos, yPos);
-    }
-},
+    update: function(du) {
 
-resetShips: function() {
-    this._forEachOf(this._ships, Ship.prototype.reset);
-},
+        for (var c = 0; c < this._categories.length; ++c) {
 
-haltShips: function() {
-    this._forEachOf(this._ships, Ship.prototype.halt);
-},	
+            var aCategory = this._categories[c];
+            var i = 0;
 
-toggleRocks: function() {
-    this._bShowRocks = !this._bShowRocks;
-},
+            while (i < aCategory.length) {
 
-update: function(du) {
+                var status = aCategory[i].update(du);
 
-    for (var c = 0; c < this._categories.length; ++c) {
-
-        var aCategory = this._categories[c];
-        var i = 0;
-
-        while (i < aCategory.length) {
-
-            var status = aCategory[i].update(du);
-
-            if (status === this.KILL_ME_NOW) {
-                // remove the dead guy, and shuffle the others down to
-                // prevent a confusing gap from appearing in the array
-                aCategory.splice(i,1);
-            }
-            else {
-                ++i;
+                if (status === this.KILL_ME_NOW) {
+                    // remove the dead guy, and shuffle the others down to
+                    // prevent a confusing gap from appearing in the array
+                    aCategory.splice(i,1);
+                }
+                else {
+                    ++i;
+                }
             }
         }
-    }
-    
-    if (this._rocks.length === 0) this._generateRocks();
 
-},
+        if (this._ghosts.length === 0) this._generateGhosts();
+
+    },
 
 render: function(ctx) {
 
