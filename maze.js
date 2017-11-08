@@ -99,7 +99,7 @@ var wallPice = new Array (
     't', 'tiles18', 'f', 'tiles17', 'g', 'tiles16', 'j', 'tiles10', 'y', 'tiles9'
     'u', 'tiles12', 'i', 's', 'tiles14', 'tiles15', 'x', 'tiles0'
 );
-
+ 
 function buildWalls(a) {
     var m = walls[a];
     food = 0;
