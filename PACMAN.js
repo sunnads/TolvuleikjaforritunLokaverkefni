@@ -110,6 +110,7 @@ function updateSimulation(du) {
     function requestPreloads() {
 
         var requiredImages = {
+        /*
             patman1: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/patman1.png",
             patman2: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/patman2.png",
             patman3: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/patman3.png",
@@ -132,7 +133,31 @@ function updateSimulation(du) {
             tiles16: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles16.jpg",
             tiles17: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles17.jpg",
             tiles18: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles18.jpg"
+        */
 
+            patman1: "images/tiles0.jpg",
+            patman2: "images/tiles0.jpg",
+            patman3: "images/tiles0.jpg",
+            // tiles0    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles0.jpg",
+            tiles0: "images/tiles0.jpg",
+            tiles1: "images/tiles1.jpg",
+            tiles2: "images/tiles2.jpg",
+            tiles3: "images/tiles3.jpg",
+            tiles4: "images/tiles4.jpg",
+            tiles5: "images/tiles5.jpg",
+            tiles6: "images/tiles6.jpg",
+            tiles7: "images/tiles7.jpg",
+            tiles8: "images/tiles8.jpg",
+            tiles9: "images/tiles9.jpg",
+            tiles10: "images/tiles10.jpg",
+            tiles11: "images/tiles11.jpg",
+            tiles12: "images/tiles12.jpg",
+            tiles13: "images/tiles13.jpg",
+            tiles14: "images/tiles14.jpg",
+            tiles15: "images/tiles15.jpg",
+            tiles16: "images/tiles16.jpg",
+            tiles17: "images/tiles17.jpg",
+            tiles18: "images/tiles18.jpg"
         };
 
         imagesPreload(requiredImages, g_images, preloadDone);
@@ -146,6 +171,7 @@ function updateSimulation(du) {
         g_sprites.patman2 = new Sprite(g_images.patman2);
         g_sprites.patman3 = new Sprite(g_images.patman3);
 
+        g_sprites.tiles0 = new Sprite(g_images.tiles0);
         g_sprites.tiles1 = new Sprite(g_images.tiles1);
         g_sprites.tiles2 = new Sprite(g_images.tiles2);
         g_sprites.tiles3 = new Sprite(g_images.tiles3);

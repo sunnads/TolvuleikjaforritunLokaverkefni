@@ -128,43 +128,78 @@ Maze.prototype.tileType =[{
 function findTile(letter) {
     switch(letter){
 
-        case a : return "tiles7";
-        case b : return "tiles6";
-        case h : return "tiles13";
-        case c : return "tiles2";
-        case k : return "tiles4";
-        case l : return "tiles8";
-        case v : return "tiles5";
-        case p : return "tiles3";
-        case e : return "tiles1";
-        case w : return "tiles11";
-        case t : return "tiles18";
-        case f : return "tiles17";
-        case g : return "tiles16";
-        case j : return "tiles10";
-        case y : return "tiles9";
-        case u : return "tiles12";
-        case i : return "tiles14";
-        case s : return "tiles15";
-        case x : return "tiles1";
-        case "": return "tiles1";
+        case "a" : return "tiles7";
+        case "b" : return "tiles6";
+        case "h" : return "tiles13";
+        case "c" : return "tiles2";
+        case "k" : return "tiles4";
+        case "l" : return "tiles8";
+        case "v" : return "tiles5";
+        case "p" : return "tiles3";
+        case "e" : return "tiles1";
+        case "w" : return "tiles11";
+        case "t" : return "tiles18";
+        case "f" : return "tiles17";
+        case "g" : return "tiles16";
+        case "j" : return "tiles10";
+        case "y" : return "tiles9";
+        case "u" : return "tiles12";
+        case "i" : return "tiles14";
+        case "s" : return "tiles15";
+        case "x" : return "tiles1";
+        case "": return "tiles0";
+        default: return "tiles0";
+    }
+}
+
+function findTileSprite(letter) {
+    switch(letter){
+
+        case "a" : return g_sprites.tiles7;
+        case "b" : return g_sprites.tiles6;
+        case "h" : return g_sprites.tiles13;
+        case "c" : return g_sprites.tiles2;
+        case "k" : return g_sprites.tiles4;
+        case "l" : return g_sprites.tiles8;
+        case "v" : return g_sprites.tiles5;
+        case "p" : return g_sprites.tiles3;
+        case "e" : return g_sprites.tiles1;
+        case "w" : return g_sprites.tiles11;
+        case "t" : return g_sprites.tiles18;
+        case "f" : return g_sprites.tiles17;
+        case "g" : return g_sprites.tiles16;
+        case "j" : return g_sprites.tiles10;
+        case "y" : return g_sprites.tiles9;
+        case "u" : return g_sprites.tiles12;
+        case "i" : return g_sprites.tiles14;
+        case "s" : return g_sprites.tiles15;
+        case "x" : return g_sprites.tiles1;
+        case "": return g_sprites.tiles0;
+        default: return g_sprites.tiles0;
     }
 }
 
 
 function buildMaze(k,ctx) {
-    for(var r = 0; r<k.mazeCode.length;r++){
-        this.cx +=5;
-        this.cy =0;
-        for(var c = 0; c<k.mazeCode[r].length;c++){
-            this.cy+=5;
-            var Tile = g_sprites[findTile(k.mazeCode[r][c])];
+    for(var r = 0; r<k.g_maze[0].mazeCode.length; r++){ // rows
+        k.cy += 28;
+        k.cx = 0;
+        for(var c = 0; c<k.g_maze[0].mazeCode[r].length; c++){  // columns
+            k.cx+=28;
+            //var Tile = g_sprites[findTile(k.g_maze[0].mazeCode[r][c])];
             //var Tile = g_sprites.tileType.k.mazeCode[r][c]
-            Tile.drawWrappedCentredAt(
-                ctx, this.cx, this.cy, this.rotation);
-            this.mazeTiles.push(Tile);
+            var sprite = findTileSprite(k.g_maze[0].mazeCode[r][c]);
+            //console.log(sprite);
+            //console.log(k.g_maze[0].mazeCode[r][c]);
+            //console.log("cx: "+k.cx+" cy: "+k.cy+" r:"+r+" c:"+c);
+            //var tile = g_sprites.sprite;
+            //console.log(tile);
+            sprite.drawWrappedCentredAt(ctx, k.cx, k.cy, k.rotation);
+            k.mazeTiles.push(sprite);
         }
     }
+    k.cy = 0;
+    k.cx = 0;
 }
 
 Maze.prototype.update = function (du) {
@@ -174,5 +209,5 @@ Maze.prototype.update = function (du) {
 Maze.prototype.render = function (ctx) {
 
 
-    buildMaze(this.g_maze,ctx);
+    buildMaze(this,ctx);
 };

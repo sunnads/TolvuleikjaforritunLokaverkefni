@@ -22,6 +22,8 @@ function Sprite(image) {
     this.scale = 1;
 }
 
+Sprite.prototype.mazeSprites = []
+
 Sprite.prototype.drawAt = function (ctx, x, y) {
     ctx.drawImage(this.image, 
                   x, y);

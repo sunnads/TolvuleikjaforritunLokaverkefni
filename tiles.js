@@ -20,7 +20,7 @@ function Tiles(descr) {
 
 
     // Default sprite and scale, if not otherwise specified
-    this.sprite = this.sprite || g.sprite.tiles1;
+    this.sprite = this.sprite || g_sprites.tiles1;
     this.scale  = this.scale  || 1;
 
 /*

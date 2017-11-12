@@ -44,7 +44,7 @@ _generateMaze : function() {
 
 _generateTiles : function () {
 
-    this._generateTiles()
+    this.generateTiles()
 },
 /*
 _generateGhosts : function() {
@@ -96,7 +96,7 @@ generateMaze : function(descr) {
 },
 
 generateTiles : function(descr) {
-    this._tiles.push(new Tiles(descr));
+    //this._tiles.push(new Tiles(descr));
 },
 /*
 generateGhost : function(descr) {
