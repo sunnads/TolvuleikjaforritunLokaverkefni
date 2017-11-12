@@ -10,8 +10,6 @@
  0        1         2         3         4         5         6         7         8
  12345678901234567890123456789012345678901234567890123456789012345678901234567890
  */
-var mazeX = 0;
-var mazeY = 0;
 
 
 //lína 358
@@ -22,18 +20,15 @@ function Maze(descr) {
     this.setup(descr);
 
 
-    // Default sprite and scale, if not otherwise specifies
-
-    /*
-     // Diagnostics to check inheritance stuff
-     console.dir(this);
-     */
-
-};
+}
 
 Maze.prototype = new Entity();
 
-var g_maze = [
+ Maze.prototype.mazeTiles = [];
+ Maze.prototype.cx = 0;
+ Maze.prototype.cy = 0;
+
+ Maze.prototype.g_maze = [
     {
     //drawing the maze
     /*
@@ -59,20 +54,20 @@ var g_maze = [
      s = kross
      */
     mazeCode : [
-        [a,b,b,b,b,h,b,b,b,b,b,b,b,c,x,k,b,b,b,l],
-        [v,o, , , ,e, , , , , , , , , , , , ,o,v],
-        [v, ,a,c, , , ,k,b,b,b,k, ,k,b,b,b,c, ,v],
-        [v, ,v, , ,p, , , , , , , , , , , , , ,v],
-        [v, ,v, ,k,w,c, ,p, ,a,b,b,l, ,p, ,p, ,v],
-        [e, ,v, , , , , ,v, ,v,x,x,f, ,v, ,v, ,e],
-        [x, ,v, , , ,p, ,e, ,v,x,x,t, ,v, ,v, ,x],
-        [p, ,j,b,c, ,e, , , ,j,h,h,g, ,e, ,v, ,p],
-        [v, , , , , , , ,p, , ,x, , , , , ,v, ,v],
-        [u,b,c, ,p, ,p, ,j,b,b,b,b,c, ,p, ,e, ,v],
-        [v, , , ,v, ,v, , , , , , , , ,v, , , ,v],
-        [v, ,s, ,e, ,j,c, ,k,b,b,b,c, ,e, ,s, ,v],
-        [v,o, , , , , , , , , , , , , , , , ,o,v],
-        [j,b,b,b,b,b,b,b,b,b,b,b,b,c,x,k,b,b,b,y]
+        ["a","b","b","b","b","h","b","b","b","b","b","b","b","c","x","k","b","b","b","l"],
+        ["v","o"," "," "," ","e"," "," "," "," "," "," "," "," "," "," "," "," ","o","v"],
+        ["v"," ","a","c"," "," "," ","k","b","b","b","k"," ","k","b","b","b","c"," ","v"],
+        ["v"," ","v"," "," ","p"," "," "," "," "," "," "," "," "," "," "," "," "," ","v"],
+        ["v"," ","v"," ","k","w","c"," ","p"," ","a","b","b","l"," ","p"," ","p"," ","v"],
+        ["e"," ","v"," "," "," "," "," ","v"," ","v","x","x","f"," ","v"," ","v"," ","e"],
+        ["x"," ","v"," "," "," ","p"," ","e"," ","v","x","x","t"," ","v"," ","v"," ","x"],
+        ["p"," ","j","b","c"," ","e"," "," "," ","j","h","h","g"," ","e"," ","v"," ","p"],
+        ["v"," "," "," "," "," "," "," ","p"," "," ","x"," "," "," "," "," ","v"," ","v"],
+        ["u","b","c"," ","p"," ","p"," ","j","b","b","b","b","c"," ","p"," ","e"," ","v"],
+        ["v"," "," "," ","v"," ","v"," "," "," "," "," "," "," "," ","v"," "," "," ","v"],
+        ["v"," ","s"," ","e"," ","j","c"," ","k","b","b","b","c"," ","e"," ","s"," ","v"],
+        ["v","o"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","o","v"],
+        ["j","b","b","b","b","b","b","b","b","b","b","b","b","c","x","k","b","b","b","y"]
     ],
     //where patman can move
     /*
@@ -107,7 +102,7 @@ var g_maze = [
 }
 ];
 // ef við viljum fleiri borð þá gera aftur allt þetta 3 hér fyrir ofan
-var tileType =[{
+Maze.prototype.tileType =[{
     a : "tiles7",
     b : "tiles6",
     h : "tiles13",
@@ -126,28 +121,58 @@ var tileType =[{
     u : "tiles12",
     i : "tiles14",
     s : "tiles15",
-    x : "tiles0"
+    x : "tiles1",
+    "" : "tiles1"
 }];
-function findTile(letter){
-return g_sprite.letter;
-};
 
-function buildMaze(k) {
-    var m = [k];
-    for(var r = 0; r<m.mazeCode.length;r++){
-        for(var c = 0; c<m.mazeCode[r].length;c++){
+function findTile(letter) {
+    switch(letter){
 
-            g_sprites.tileType.(m.mazeCode[r][c])
+        case a : return "tiles7";
+        case b : return "tiles6";
+        case h : return "tiles13";
+        case c : return "tiles2";
+        case k : return "tiles4";
+        case l : return "tiles8";
+        case v : return "tiles5";
+        case p : return "tiles3";
+        case e : return "tiles1";
+        case w : return "tiles11";
+        case t : return "tiles18";
+        case f : return "tiles17";
+        case g : return "tiles16";
+        case j : return "tiles10";
+        case y : return "tiles9";
+        case u : return "tiles12";
+        case i : return "tiles14";
+        case s : return "tiles15";
+        case x : return "tiles1";
+        case "": return "tiles1";
+    }
+}
+
+
+function buildMaze(k,ctx) {
+    for(var r = 0; r<k.mazeCode.length;r++){
+        this.cx +=5;
+        this.cy =0;
+        for(var c = 0; c<k.mazeCode[r].length;c++){
+            this.cy+=5;
+            var Tile = g_sprites[findTile(k.mazeCode[r][c])];
+            //var Tile = g_sprites.tileType.k.mazeCode[r][c]
+            Tile.drawWrappedCentredAt(
+                ctx, this.cx, this.cy, this.rotation);
+            this.mazeTiles.push(Tile);
         }
     }
-};
+}
 
 Maze.prototype.update = function (du) {
 
 };
 
 Maze.prototype.render = function (ctx) {
-    this.sprite.drawWrappedCentredAt(
-        ctx, this.cx, this.cy, this.rotation
-    );
+
+
+    buildMaze(this.g_maze,ctx);
 };

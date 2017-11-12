@@ -20,7 +20,7 @@ function Tiles(descr) {
 
 
     // Default sprite and scale, if not otherwise specified
-    this.sprite = this.sprite || g_sprites.tiles1;
+    this.sprite = this.sprite || g.sprite.tiles1;
     this.scale  = this.scale  || 1;
 
 /*
@@ -29,10 +29,45 @@ function Tiles(descr) {
     console.dir(this);
 */
 
-};
+}
+
 
 Tiles.prototype = new Entity();
 
+Tiles.prototype.cx = 0;
+Tiles.prototype.cy =0;
+
+Tiles.prototype.tileType =[{
+    a : "tiles7",
+    b : "tiles6",
+    h : "tiles13",
+    c : "tiles2",
+    k : "tiles4",
+    l : "tiles8",
+    v : "tiles5",
+    p : "tiles3",
+    e : "tiles1",
+    w : "tiles11",
+    t : "tiles18",
+    f : "tiles17",
+    g : "tiles16",
+    j : "tiles10",
+    y : "tiles9",
+    u : "tiles12",
+    i : "tiles14",
+    s : "tiles15",
+    x : "tiles0"
+}];
+
+function whatTile(letter) {
+
+    return g.sprite.tileType[letter];
+}
+
+function setTile(letter) {
+    this.sprite = this.sprite || whatTile(letter);
+
+}
 
 
 Tiles.prototype.update = function (du) {

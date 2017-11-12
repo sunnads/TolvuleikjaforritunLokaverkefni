@@ -27,10 +27,11 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-_ghosts  : [],
-_pellets : [],  // food for pacman
-_pills   : [],  // power up pills for pacman
-_pacman  : [],
+_tiles : [],
+//_ghosts  : [],
+//_pellets : [],  // food for pacman
+//_pills   : [],  // power up pills for pacman
+//_pacman  : [],
 
 _maze : [],
 
@@ -38,9 +39,14 @@ _maze : [],
 
 _generateMaze : function() {
 
-        this.generateMaze();
+    this.generateMaze();
 },
 
+_generateTiles : function () {
+
+    this._generateTiles()
+},
+/*
 _generateGhosts : function() {
     var i,
         NUM_GHOSTS = 4;
@@ -56,7 +62,7 @@ _generatePacman  : function () {
         this.generatePacman();
 },
 
-
+*/
 
 _forEachOf: function(aCategory, fn) {
     for (var i = 0; i < aCategory.length; ++i) {
@@ -76,19 +82,23 @@ KILL_ME_NOW : -1,
 //
 deferredSetup : function () {
 
-    this._categories = [this._maze, this._ghosts, this._pacman, this._pellets, this._pills];
+    this._categories = [this._maze,this._tiles];
 },
 
 init: function() {
     this._generateMaze();
-    this._generateGhosts();
-    this._generatePacman();
+    this._generateTiles();
+
 },
 
 generateMaze : function(descr) {
-    this._Maze.push(new Maze(descr));
+    this._maze.push(new Maze(descr));
 },
 
+generateTiles : function(descr) {
+    this._tiles.push(new Tiles(descr));
+},
+/*
 generateGhost : function(descr) {
         this._ghosts.push(new Ghost(descr));
     },
@@ -97,11 +107,7 @@ generatePacman : function(descr) {
     this._pacman.push(new Pac_man(descr));
 },
 
-
-generatePacman : function(descr) {
-        this._pacman.push(new Pac_man(descr));
-    },
-
+*/
   update: function(du) {
 
         for (var c = 0; c < this._categories.length; ++c) {
@@ -124,7 +130,6 @@ generatePacman : function(descr) {
             }
         }
 
-        if (this._ghosts.length === 0) this._generateGhosts();
 
     },
 
@@ -136,9 +141,6 @@ render: function(ctx) {
 
         var aCategory = this._categories[c];
 
-        if (!this._bShowRocks && 
-            aCategory == this._rocks)
-            continue;
 
         for (var i = 0; i < aCategory.length; ++i) {
 
@@ -150,7 +152,7 @@ render: function(ctx) {
     }
 }
 
-}
+};
 
 // Some deferred setup which needs the object to have been created first
 entityManager.deferredSetup();
