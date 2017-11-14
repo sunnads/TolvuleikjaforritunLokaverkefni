@@ -23,14 +23,10 @@ var g_ctx = g_canvas.getContext("2d");
 
 function createInitialMaze() {
 
-   /* entityManager.generateShip({
-        cx : 200,
-        cy : 200
-    });
-*/
     entityManager.generateMaze({
     });
-    
+    entityManager.generatePacman({
+    });
 }
 
 // =============
@@ -135,9 +131,10 @@ function updateSimulation(du) {
             tiles18: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles18.jpg"
         */
 
-            patman1: "images/tiles0.jpg",
-            patman2: "images/tiles0.jpg",
-            patman3: "images/tiles0.jpg",
+            pacman:"images/Pac-Man_sprite.png",
+            patman1: "images/patman1.jpg",
+            patman2: "images/patman2.jpg",
+            patman3: "images/patman3.jpg",
             // tiles0    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles0.jpg",
             tiles0: "images/tiles0.jpg",
             tiles1: "images/tiles1.jpg",
@@ -157,7 +154,10 @@ function updateSimulation(du) {
             tiles15: "images/tiles15.jpg",
             tiles16: "images/tiles16.jpg",
             tiles17: "images/tiles17.jpg",
-            tiles18: "images/tiles18.jpg"
+            tiles18: "images/tiles18.jpg",
+            tileskristall: "images/tileskristall.jpg",
+            tilesredbull: "images/tilesredbull.jpg",
+            tilesdot: "images/tilesdot.png"
         };
 
         imagesPreload(requiredImages, g_images, preloadDone);
@@ -170,6 +170,7 @@ function updateSimulation(du) {
         g_sprites.patman1 = new Sprite(g_images.patman1);
         g_sprites.patman2 = new Sprite(g_images.patman2);
         g_sprites.patman3 = new Sprite(g_images.patman3);
+        g_sprites.pacman = new Sprite(g_images.pacman);
 
         g_sprites.tiles0 = new Sprite(g_images.tiles0);
         g_sprites.tiles1 = new Sprite(g_images.tiles1);
@@ -190,6 +191,9 @@ function updateSimulation(du) {
         g_sprites.tiles16 = new Sprite(g_images.tiles16);
         g_sprites.tiles17 = new Sprite(g_images.tiles17);
         g_sprites.tiles18 = new Sprite(g_images.tiles18);
+        g_sprites.tileskristall = new Sprite(g_images.tileskristall);
+        g_sprites.tilesredbull = new Sprite(g_images.tilesredbull);
+        g_sprites.tilesdot = new Sprite(g_images.tilesdot);
 
         entityManager.init();
         createInitialMaze();
