@@ -131,10 +131,10 @@ function updateSimulation(du) {
             tiles18: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles18.jpg"
         */
 
-            pacman:"images/Pac-Man_sprite.png",
-            patman1: "images/patman1.jpg",
-            patman2: "images/patman2.jpg",
-            patman3: "images/patman3.jpg",
+            pacman:"images/patman1.png",
+            patman1: "patman1.png",
+            patman2: "patman2.png",
+            patman3: "patman3.png",
             // tiles0    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles0.jpg",
             tiles0: "images/tiles0.jpg",
             tiles1: "images/tiles1.jpg",
