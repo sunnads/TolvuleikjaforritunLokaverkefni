@@ -1,5 +1,5 @@
 // =========
-// ASTEROIDS
+// PATMAN
 // =========
 /*
 
@@ -18,7 +18,7 @@ var g_ctx = g_canvas.getContext("2d");
 
 
 // ====================
-// CREATE INITIAL SHIPS
+// CREATE INITIAL GAME
 // ====================
 
 function createInitialMaze() {
@@ -34,23 +34,13 @@ function createInitialMaze() {
 // =============
 
 function gatherInputs() {
-    // Nothing to do here!
-    // The event handlers do everything we need for now.
+
 }
 
 
 // =================
 // UPDATE SIMULATION
 // =================
-
-// We take a very layered approach here...
-//
-// The primary `update` routine handles generic stuff such as
-// pausing, single-step, and time-handling.
-//
-// It then delegates the game-specific logic to `updateSimulation`
-
-
 // GAME-SPECIFIC UPDATE LOGIC
 
 function updateSimulation(du) {
@@ -79,15 +69,6 @@ function updateSimulation(du) {
 // =================
 // RENDER SIMULATION
 // =================
-
-// We take a very layered approach here...
-//
-// The primary `render` routine handles generic stuff such as
-// the diagnostic toggles (including screen-clearing).
-//
-// It then delegates the game-specific logic to `gameRender`
-
-
 // GAME-SPECIFIC RENDERING
 
     function renderSimulation(ctx) {
@@ -106,36 +87,10 @@ function updateSimulation(du) {
     function requestPreloads() {
 
         var requiredImages = {
-        /*
-            patman1: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/patman1.png",
-            patman2: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/patman2.png",
-            patman3: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/patman3.png",
-            // tiles0    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles0.jpg",
-            tiles1: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles1.jpg",
-            tiles2: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles2.jpg",
-            tiles3: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles3.jpg",
-            tiles4: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles4.jpg",
-            tiles5: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles5.jpg",
-            tiles6: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles6.jpg",
-            tiles7: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles7.jpg",
-            tiles8: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles8.jpg",
-            tiles9: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles9.jpg",
-            tiles10: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles10.jpg",
-            tiles11: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles11.jpg",
-            tiles12: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles12.jpg",
-            tiles13: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles13.jpg",
-            tiles14: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles14.jpg",
-            tiles15: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles15.jpg",
-            tiles16: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles16.jpg",
-            tiles17: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles17.jpg",
-            tiles18: "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles18.jpg"
-        */
 
-            pacman:"images/patman1.png",
-            patman1: "patman1.png",
-            patman2: "patman2.png",
-            patman3: "patman3.png",
-            // tiles0    : "https://notendur.hi.is/ksh18/Tolvuleikjaforritun/pacman_sprites/tiles0.jpg",
+            patman1: "images/patman1.png",
+            patman2: "images/patman2.png",
+            patman3: "images/patman3.png",
             tiles0: "images/tiles0.jpg",
             tiles1: "images/tiles1.jpg",
             tiles2: "images/tiles2.jpg",
@@ -170,7 +125,6 @@ function updateSimulation(du) {
         g_sprites.patman1 = new Sprite(g_images.patman1);
         g_sprites.patman2 = new Sprite(g_images.patman2);
         g_sprites.patman3 = new Sprite(g_images.patman3);
-        g_sprites.pacman = new Sprite(g_images.pacman);
 
         g_sprites.tiles0 = new Sprite(g_images.tiles0);
         g_sprites.tiles1 = new Sprite(g_images.tiles1);

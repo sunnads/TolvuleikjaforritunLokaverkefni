@@ -79,6 +79,8 @@ deferredSetup : function () {
     this._categories = [this._maze,this._pacman];
 },
 
+
+
 init: function() {
     this._generateMaze();
     this._generatePacman();

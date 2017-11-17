@@ -79,7 +79,7 @@ Maze.prototype = new Entity();
      6 = hægri, vinstri, niður
      7 = upp, vinstri
      8 = hægri, upp
-     9 =
+
      */
 
     mazeGrid : [
@@ -101,10 +101,6 @@ Maze.prototype = new Entity();
     ]
 }
 ];
-
- function getTilePixelPos(x) {
-     return x*28;
- }
 
 
 
@@ -159,8 +155,20 @@ function buildMaze(k,ctx) {
     k.cx = 0;
 }
 
+Maze.prototype.dotsEaten =function (k) {
+
+    var pacY = Pacman.prototype.row;
+    var pacX = Pacman.prototype.col;
+
+    if(" " === k.g_maze[0].mazeCode[pacY][pacX]){
+        k.g_maze[0].mazeCode[pacY][pacX] = "x";
+
+    }
+};
+
 Maze.prototype.update = function (du) {
 
+    Maze.prototype.dotsEaten(this);
 };
 
 Maze.prototype.render = function (ctx) {
