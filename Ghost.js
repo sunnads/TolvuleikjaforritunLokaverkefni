@@ -13,11 +13,11 @@
 
 
 // A generic contructor which accepts an arbitrary descriptor object
-function Bullet(descr) {
+function Ghost(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-
+    this.sprite = this.sprite || g_sprites.ghost1;
     // Make a noise when I am created (i.e. fired)
     this.fireSound.play();
 
@@ -29,86 +29,146 @@ function Bullet(descr) {
 
 }
 
-Bullet.prototype = new Entity();
+Ghost.prototype = new Entity();
 
 // HACKED-IN AUDIO (no preloading)
-Bullet.prototype.fireSound = new Audio(
+Ghost.prototype.fireSound = new Audio(
     "sounds/bulletFire.ogg");
-Bullet.prototype.zappedSound = new Audio(
-    "sounds/bulletZapped.ogg");
 
 // Initial, inheritable, default values
-Bullet.prototype.rotation = 0;
-Bullet.prototype.cx = 200;
-Bullet.prototype.cy = 200;
-Bullet.prototype.velX = 1;
-Bullet.prototype.velY = 1;
+Ghost.prototype.animate= [];
+Ghost.prototype.animationstate = 0;
+Ghost.prototype.direction = 1;
+Ghost.prototype.row = 4;
+Ghost.prototype.col = 12;
+Ghost.prototype.cx = 12*28;
+Ghost.prototype.cy = 4*28;
+Ghost.prototype.scale = 0.15;
+//Chost.prototype.moving = false;
+//Chost.prototype.isDeadNow =false;
+Ghost.prototype.movespeed = 2;
+Ghost.prototype.rotation = 0;
 
-// Convert times from milliseconds to "nominal" time units.
-Bullet.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 
-Bullet.prototype.update = function (du) {
-
-    // TODO: YOUR STUFF HERE! --- Unregister and check for death
-    spatialManager.unregister(this);
-
-    if (this._isDeadNow)
-      return entityManager.KILL_ME_NOW;
-    
-
-    this.lifeSpan -= du;
-    if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
-
-    this.cx += this.velX * du;
-    this.cy += this.velY * du;
-
-    this.rotation += 1 * du;
-    this.rotation = util.wrapRange(this.rotation,
-                                   0, consts.FULL_CIRCLE);
-
-    this.wrapPosition();
-
-    // TODO? NO, ACTUALLY, I JUST DID THIS BIT FOR YOU! :-)
-    //
-    // Handle collisions
-    //
-    var hitEntity = this.findHitEntity();
-    if (hitEntity) {
-        var canTakeHit = hitEntity.takeBulletHit;
-        if (canTakeHit) canTakeHit.call(hitEntity);
-
-        //hitEntity.entity.takeBulletHit();
-
-        return entityManager.KILL_ME_NOW;
-    }
-
-    // TODO: YOUR STUFF HERE! --- (Re-)Register
-    spatialManager.register(this);
+Ghost.prototype.update = function (du) {
+    this.move();
 
 };
 
-Bullet.prototype.getRadius = function () {
-    return 4;
-};
+Ghost.prototype.animateGhost = function () {
 
-Bullet.prototype.takeBulletHit = function () {
+}
+
+/*
+Chost.prototype.taketHit = function () {
     this.kill();
 
     // Make a noise when I am zapped by another bullet
-    this.zappedSound.play();
-};
+    //this.zappedSound.play();
+};*/
 
-Bullet.prototype.render = function (ctx) {
+Ghost.prototype.getRandom = function () {
+    return Math.floor((Math.random() * 4) + 1);
+}
 
-    var fadeThresh = Bullet.prototype.lifeSpan / 3;
 
-    if (this.lifeSpan < fadeThresh) {
-        ctx.globalAlpha = this.lifeSpan / fadeThresh;
+Ghost.prototype.move = function () {
+
+    var random =  this.getRandom();
+
+    if (random === 1){
+        if (this.canMove(0,1)) {
+            this.direction = 3;
+            this.cx += this.movespeed;
+            this.cy = this.row*28;
+            this.col = Math.round(this.cx/28);
+            console.log (random);
+            console.log("fyrsta random");
+        }
+        else {
+            console.log (random);
+            this.getRandom();
+
+            console.log("nyt gildi 1");
+            console.log (random);
+        }
     }
 
-    g_sprites.bullet.drawWrappedCentredAt(
+    else if (random === 2){
+        if (this.canMove(0,-1)) {
+            this.direction = 4;
+            this.cx += -this.movespeed;
+            this.cy = this.row*28;
+            this.col = Math.round(this.cx/28);
+            console.log (random);
+            console.log("seina random");
+        }
+        else {
+            console.log (random);
+            this.getRandom();
+            console.log("seina nyt gildi 2", random);
+        }
+    }
+    else if (random === 3){
+        if (this.canMove(1,0)){
+            this.direction = 2;
+            this.cx = this.col*28;
+            this.cy += this.movespeed;
+            this.row = Math.round(this.cy/28);
+        }
+        else {
+            console.log("nyt gildi 3");
+            this.getRandom();
+
+        }
+    }
+
+    else if (random === 4){
+        this.direction = 1;
+        if(this.canMove(-1,0)) {
+            this.direction = 1;
+            this.cx = this.col*28;
+            this.cy += -this.movespeed;
+            this.row = Math.round(this.cy/28);
+        }
+        else {
+            this.getRandom();
+        }
+    }
+};
+
+
+Ghost.prototype.canMove =function(y,x) {
+
+    var nextTile = Maze.prototype.g_maze[0].mazeCode[this.row+y-1][this.col+x-1];
+    if(nextTile === " " || nextTile === "x" || nextTile === "o") {
+        return true;
+    }
+    return false;
+}
+
+Ghost.prototype.getRadius = function () {
+    return (this.sprite.width / 2) * 0.9;
+};
+
+Ghost.prototype.reset = function () {
+    this.direction = 0;
+    this.row = 4;
+    this.col = 12;
+    this.cx = 4*28;
+    this.cy = 12*28;
+    this.scale = 0.15;
+    this.moving = false;
+    this._isDeadNow =false;
+
+};
+
+Ghost.prototype.render = function (ctx) {
+
+    this.animateGhost();
+    g_sprites.ghost1.drawWrappedCentredAt(
         ctx, this.cx, this.cy, this.rotation
     );
 
-    ctx.globalAlpha = 1;
+
 };

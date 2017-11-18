@@ -27,7 +27,7 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-//_ghosts  : [],
+_ghost  : [],
 //_pellets : [],  // food for pacman
 //_pills   : [],  // power up pills for pacman
 _pacman  : [],
@@ -40,17 +40,18 @@ _generateMaze : function() {
     this.generateMaze();
 },
 
-/*
-_generateGhosts : function() {
-    var i,
+_generateGhost : function() {
+  /*  var i,
         NUM_GHOSTS = 4;
 
     for (i = 0; i < NUM_GHOSTS; ++i) {
+
+    }*/
         this.generateGhost();
-    }
+
 },
 
-*/
+
 _generatePacman  : function () {
 
         this.generatePacman();
@@ -76,7 +77,7 @@ KILL_ME_NOW : -1,
 //
 deferredSetup : function () {
 
-    this._categories = [this._maze,this._pacman];
+    this._categories = [this._maze,this._pacman,this._ghost];
 },
 
 
@@ -84,6 +85,7 @@ deferredSetup : function () {
 init: function() {
     this._generateMaze();
     this._generatePacman();
+    this._generateGhost();
 
 },
 
@@ -91,11 +93,11 @@ generateMaze : function(descr) {
     this._maze.push(new Maze(descr));
 },
 
-/*
+
 generateGhost : function(descr) {
-        this._ghosts.push(new Ghost(descr));
+        this._ghost.push(new Ghost(descr));
     },
-*/
+
 generatePacman : function(descr) {
     this._pacman.push(new Pacman(descr));
 
