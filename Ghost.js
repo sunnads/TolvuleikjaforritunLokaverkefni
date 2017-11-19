@@ -48,6 +48,7 @@ Ghost.prototype.scale = 0.15;
 //Chost.prototype.isDeadNow =false;
 Ghost.prototype.movespeed = 2;
 Ghost.prototype.rotation = 0;
+Ghost.prototype.random = 1;
 
 
 Ghost.prototype.update = function (du) {
@@ -68,48 +69,53 @@ Chost.prototype.taketHit = function () {
 };*/
 
 Ghost.prototype.getRandom = function () {
-    return Math.floor((Math.random() * 4) + 1);
+
+      // console.log(this.changeMovement());
+      return Math.floor((Math.random() * 4) + 1);
+
+
+
 }
 
 
 Ghost.prototype.move = function () {
 
-    var random =  this.getRandom();
 
-    if (random === 1){
+   // var random =  this.getRandom();
+    // Ghost moves to Rightp
+    if (this.random === 1){
         if (this.canMove(0,1)) {
             this.direction = 3;
             this.cx += this.movespeed;
             this.cy = this.row*28;
             this.col = Math.round(this.cx/28);
-            console.log (random);
+            console.log (this.random);
             console.log("fyrsta random");
         }
         else {
-            console.log (random);
-            this.getRandom();
-
-            console.log("nyt gildi 1");
-            console.log (random);
+            console.log("komin í enda");
+            this.random = this.getRandom();
         }
-    }
+        // skoða að setja skylriði um mazeCode 
 
-    else if (random === 2){
+    }
+    // Ghost moves to Left
+    else if (this.random === 2){
         if (this.canMove(0,-1)) {
             this.direction = 4;
             this.cx += -this.movespeed;
             this.cy = this.row*28;
             this.col = Math.round(this.cx/28);
-            console.log (random);
+            console.log (this.random);
             console.log("seina random");
         }
         else {
-            console.log (random);
-            this.getRandom();
-            console.log("seina nyt gildi 2", random);
+            this.random = this.getRandom();
         }
     }
-    else if (random === 3){
+
+    //Ghost moves Down
+    else if (this.random === 3){
         if (this.canMove(1,0)){
             this.direction = 2;
             this.cx = this.col*28;
@@ -117,26 +123,46 @@ Ghost.prototype.move = function () {
             this.row = Math.round(this.cy/28);
         }
         else {
-            console.log("nyt gildi 3");
-            this.getRandom();
-
+            this.random = this.getRandom();
         }
     }
-
-    else if (random === 4){
+    // Ghost moves Up
+    else if (this.random === 4) {
         this.direction = 1;
-        if(this.canMove(-1,0)) {
+        if (this.canMove(-1, 0)) {
             this.direction = 1;
-            this.cx = this.col*28;
+            this.cx = this.col * 28;
             this.cy += -this.movespeed;
-            this.row = Math.round(this.cy/28);
+            this.row = Math.round(this.cy / 28);
         }
         else {
-            this.getRandom();
+            this.random = this.getRandom();
         }
     }
+
+  /*  if (random === 0) {
+        if (this.canMove(0, 1)) {
+            this.direction = 3;
+            this.cx += this.movespeed;
+            this.cy = this.row * 28;
+            this.col = Math.round(this.cx / 28);
+            console.log(random);
+            console.log("fyrsta random");
+        }
+    }*/
+
 };
 
+Ghost.prototype.changeMovement =function(y,x) {
+
+    var nextMove = Maze.prototype.g_maze[0].mazeGrid[this.row+y-1][this.col+x-1];
+    if(nextMove === 1 || nextMove === 2 || nextMove === 3|| nextMove === 4 || nextMove === 5 || nextMove === 6) {
+        console.log("changeMovement");
+        return true;
+    }
+    console.log("changeMovement not ");
+    return false;
+};
 
 Ghost.prototype.canMove =function(y,x) {
 
@@ -145,7 +171,7 @@ Ghost.prototype.canMove =function(y,x) {
         return true;
     }
     return false;
-}
+};
 
 Ghost.prototype.getRadius = function () {
     return (this.sprite.width / 2) * 0.9;
