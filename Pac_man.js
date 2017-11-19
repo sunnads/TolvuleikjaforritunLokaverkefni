@@ -141,5 +141,28 @@ Pacman.prototype.render = function (ctx) {
     ctx.fillText("Score: ", 60, 450);
     ctx.fillText("Lives:", 470, 450);
 
+    ctx.beginPath();
+    // milli borðs og stiga
+    ctx.moveTo(0, 415);
+    ctx.lineTo(600, 415);
+// niðri
+    ctx.moveTo(0, 498);
+    ctx.lineTo(600, 498);
+//uppi
+    ctx.moveTo(0, 2);
+    ctx.lineTo(600, 2);
+    //hægri
+    ctx.moveTo(598, 0);
+    ctx.lineTo(598, 498);
+    //vinstri
+    ctx.moveTo(2, 0);
+    ctx.lineTo(2, 600);
+
+
+
+    // set line color
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = 'white';
+    ctx.stroke();
 
 };
