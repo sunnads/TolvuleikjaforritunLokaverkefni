@@ -82,12 +82,13 @@ Ghost.prototype.move = function () {
         this.cx += this.movespeed;
         this.cy = this.row * 28;
         this.col = Math.round(this.cx / 28);
-        console.log("fyrsta random");
         console.log(this.goThisway, "gothisway gildi");
-        if (g_frameCounter%10 === 0 && this.changeMovement()) {
-            console.log("whereTomove test testidi í test");
-            console.log(this.whereToMove());
-            this.goThisway = this.whereToMove();
+        if (g_frameCounter%10 === 0 && this.changeMovement() ) {
+            if (this.preventToTurnaround()) {
+                console.log("whereTomove test testidi í test");
+                console.log(this.whereToMove());
+                this.goThisway = this.whereToMove();
+            }
         }
     }
     // Ghost moves to Left
@@ -96,11 +97,12 @@ Ghost.prototype.move = function () {
         this.cx += -this.movespeed;
         this.cy = this.row * 28;
         this.col = Math.round(this.cx / 28);
-        console.log("seina random");
         console.log(this.goThisway, "gothisway gildi");
         if (g_frameCounter%10 === 0 && this.changeMovement()) {
-            this.goThisway = this.whereToMove();
-            console.log("If inn í ifinu  nr 22");
+            if (this.preventToTurnaround()) {
+                this.goThisway = this.whereToMove();
+                console.log("If inn í ifinu  nr 22");
+            }
         }
     }
     //Ghost moves Down
@@ -111,8 +113,10 @@ Ghost.prototype.move = function () {
         this.row = Math.round(this.cy / 28);
         console.log(this.goThisway, "gothisway gildi");
         if (g_frameCounter%10 === 0 && this.changeMovement()) {
-            this.goThisway = this.whereToMove();
-            console.log("If inn í ifinu  33");
+            if ( this.preventToTurnaround()) {
+                this.goThisway = this.whereToMove();
+                console.log("If inn í ifinu  33");
+            }
         }
     }
     // Ghost moves Up
@@ -123,8 +127,10 @@ Ghost.prototype.move = function () {
         this.row = Math.round(this.cy / 28);
         console.log(this.goThisway, "gothisway gildi");
         if (g_frameCounter%10 === 0 && this.changeMovement()) {
-            this.goThisway = this.whereToMove();
-            console.log("If inn í ifinu  44");
+            if(this.preventToTurnaround()) {
+                this.goThisway = this.whereToMove();
+                console.log("If inn í ifinu  44");
+            }
         }
 
     }
@@ -136,10 +142,8 @@ Ghost.prototype.changeMovement = function() {
     if(nextMove === 1 || nextMove === 2 || nextMove === 3||
         nextMove === 4 || nextMove === 5 || nextMove === 6 ||
         nextMove === 7 || nextMove === 8 || nextMove === 9) {
-        console.log("changeMovement");
         return true;
     }
-    console.log("changeMovement not ");
     return false;
 };
 
@@ -148,10 +152,42 @@ Ghost.prototype.whereToMove = function (number) {
     var thisNextMove = Maze.prototype.g_maze[0].mazeGrid[this.row-1][this.col-1];
     var array = findWhereCanGo(thisNextMove);
     var item = array[Math.floor(Math.random()*array.length)];
-    
-    return item;
 
+    return item;
 };
+
+Ghost.prototype.preventToTurnaround = function(){
+
+    // er ekki að kalla á rett next move er td að fara rigth en hún skilar að ség sé að fara left
+    // hvað þarf að laga ?
+
+    var nextMove = this.goThisway;
+    var compareNextMove = this.findDirecPreventTurnaround();
+    console.log("nextmove", nextMove);
+    console.log("compareNextMove",compareNextMove);
+
+    if (nextMove === compareNextMove){
+
+        console.log("false");
+        return false;
+        this.whereToMove();
+
+    }
+    console.log("true");
+    return true;
+};
+
+Ghost.prototype.findDirecPreventTurnaround = function (){
+    console.log("switch case ", this.goThisway);
+    switch(this.goThisway){
+
+        case 1 : return 2;
+        case 2 : return 1;
+        case 3 : return 4;
+        case 4 : return 3;
+    }
+};
+
 
 Ghost.prototype.canMove = function(y,x) {
 
