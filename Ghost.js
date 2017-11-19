@@ -84,7 +84,7 @@ Ghost.prototype.move = function () {
         this.col = Math.round(this.cx / 28);
         console.log("fyrsta random");
         console.log(this.goThisway, "gothisway gildi");
-        if (this.changeMovement()) {
+        if (g_frameCounter%10 === 0 && this.changeMovement()) {
             console.log("whereTomove test testidi í test");
             console.log(this.whereToMove());
             this.goThisway = this.whereToMove();
@@ -98,7 +98,7 @@ Ghost.prototype.move = function () {
         this.col = Math.round(this.cx / 28);
         console.log("seina random");
         console.log(this.goThisway, "gothisway gildi");
-        if (this.changeMovement()) {
+        if (g_frameCounter%10 === 0 && this.changeMovement()) {
             this.goThisway = this.whereToMove();
             console.log("If inn í ifinu  nr 22");
         }
@@ -110,7 +110,7 @@ Ghost.prototype.move = function () {
         this.cy += this.movespeed;
         this.row = Math.round(this.cy / 28);
         console.log(this.goThisway, "gothisway gildi");
-        if (this.changeMovement()) {
+        if (g_frameCounter%10 === 0 && this.changeMovement()) {
             this.goThisway = this.whereToMove();
             console.log("If inn í ifinu  33");
         }
@@ -122,7 +122,7 @@ Ghost.prototype.move = function () {
         this.cy += -this.movespeed;
         this.row = Math.round(this.cy / 28);
         console.log(this.goThisway, "gothisway gildi");
-        if (this.changeMovement()) {
+        if (g_frameCounter%10 === 0 && this.changeMovement()) {
             this.goThisway = this.whereToMove();
             console.log("If inn í ifinu  44");
         }
@@ -148,17 +148,7 @@ Ghost.prototype.whereToMove = function (number) {
     var thisNextMove = Maze.prototype.g_maze[0].mazeGrid[this.row-1][this.col-1];
     var array = findWhereCanGo(thisNextMove);
     var item = array[Math.floor(Math.random()*array.length)];
-    //  var sprite = findTileSprite(k.g_maze[0].mazeCode[r][c]);
-   // var rand = myArray[Math.floor(Math.random() * myArray.length)];
-  /*  if (thisNextMove === changeMove){
-
-        var item = changeMove[Math.floor(Math.random()*items.length)];
-        return item;
-    }*/
-
-    console.log (array, "array");
-    console.log(item, "item");
-    console.log(thisNextMove, "thisNextMove");
+    
     return item;
 
 };

@@ -79,6 +79,7 @@ Maze.prototype = new Entity();
      6 = right, left, down   1  2  3
      7 = up, left  2 4
      8 = right, up  1 4
+     9 = allar áttir 1 2 3 4
 
      */
 
@@ -143,6 +144,7 @@ function findWhereCanGo(number) {
         case 6 : return [1,2,3];
         case 7 : return [2,4];
         case 8 : return [1,4];
+        case 9 : return [1,2,3,4];
     }
 
 }
