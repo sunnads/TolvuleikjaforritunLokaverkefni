@@ -24,7 +24,7 @@ function Maze(descr) {
 
 Maze.prototype = new Entity();
 
- Maze.prototype.mazeTiles = [];
+ Maze.prototype.mazeTiles = [],[];
  Maze.prototype.cx = 0;
  Maze.prototype.cy = 0;
 
@@ -128,6 +128,7 @@ function findTileSprite(letter) {
         case "x" : return g_sprites.tiles0;
         case " " : return g_sprites.tilesdot;
         case "o" : return g_sprites.tilesredbull;
+        case "kr" : return g_sprites.tileskristall;
         default: return g_sprites.tiles0;
     }
 }
@@ -145,7 +146,7 @@ function buildMaze(k,ctx) {
             //console.log(k.g_maze[0].mazeCode[r][c]);
             //console.log("cx: "+k.cx+" cy: "+k.cy+" r:"+r+" c:"+c);
             sprite.drawWrappedCentredAt(ctx, k.cx, k.cy, k.rotation);
-            k.mazeTiles.push(sprite);
+            //k.mazeTiles.push(sprite);
         }
     }
     k.cy = 0;
@@ -164,20 +165,19 @@ Maze.prototype.dotsEaten =function (k) {
     }
 };
 */
-Maze.prototype.update = function (du) {
 
-    var pacY = Pacman.prototype.row;
-    var pacX = Pacman.prototype.col;
-
-    if(" " === this.g_maze[0].mazeCode[pacY][pacX]){
-        this.g_maze[0].mazeCode[pacY][pacX] = "x";
-
+Maze.prototype.createKristall = function (k) {
+    if(g_frameCounter%200 ===0){
+        k.g_maze[0].mazeCode[8][11] = "kr";
+        }
     }
 
+Maze.prototype.update = function (du) {
+    this.createKristall(this);
 };
 
 Maze.prototype.render = function (ctx) {
-
+/*
     for(var r = 0; r<this.g_maze[0].mazeCode.length; r++){ // rows
         this.cy += 28;
         this.cx = 0;
@@ -191,6 +191,6 @@ Maze.prototype.render = function (ctx) {
     this.cy = 0;
     this.cx = 0;
 
-
-    //buildMaze(this,ctx);
+*/
+    buildMaze(this,ctx);
 };

@@ -30,6 +30,7 @@ Pacman.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
 
 // Initial, inheritable, default values
 
+Pacman.prototype.points = 0;
 Pacman.prototype.animationstate = 0;
 Pacman.prototype.direction = 3;
 Pacman.prototype.row = 9;
@@ -39,7 +40,7 @@ Pacman.prototype.cy = 9*28;
 Pacman.prototype.scale = 0.15;
 Pacman.prototype.moving = false;
 Pacman.prototype._isDeadNow =false;
-Pacman.prototype.movespeed = 2;
+Pacman.prototype.movespeed = 3;
 Pacman.prototype.rotation = 0;
 
 
@@ -58,6 +59,7 @@ Pacman.prototype.update = function () {
     this.animatePacman();
     this.checkDot();
     this.checkRedBull();
+    this.checkKristall();
     this.moving = false;
 };
 
@@ -71,7 +73,6 @@ Pacman.prototype.animatePacman = function () {
     }
 
 }
-
 
 Pacman.prototype.move = function () {
 
@@ -122,7 +123,7 @@ Pacman.prototype.checkDot = function () {
 
     if(" " === Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1]){
         Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1] = "x";
-
+        this.points += 15;
     }
 };
 
@@ -130,14 +131,22 @@ Pacman.prototype.checkRedBull = function () {
 
     if("o" === Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1]){
         Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1] = "x";
+        this.points += 50;
+    }
+};
 
+Pacman.prototype.checkKristall = function () {
+
+    if("kr" === Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1]){
+        Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1] = "x";
+        this.points += 100;
     }
 };
 
 Pacman.prototype.canMove =function(y,x) {
 
     var nextTile = Maze.prototype.g_maze[0].mazeCode[this.row+y-1][this.col+x-1];
-    if(nextTile === " " || nextTile === "x" || nextTile === "o") {
+    if(nextTile === " " || nextTile === "x" || nextTile === "o" || nextTile === "kr") {
         return true;
         console.log("canMove");
     }
@@ -182,6 +191,7 @@ Pacman.prototype.render = function (ctx) {
     ctx.textAlign = "center";
     ctx.fillText(this.row, 15, 50);
     ctx.fillText(this.col, 15, 70);
+    ctx.fillText(this.points, 580, 390);
     var sprite = this.mouthMove();
     sprite.scale = this.scale;
     sprite.drawWrappedCentredAt(
