@@ -71,14 +71,14 @@ Maze.prototype = new Entity();
     ],
     //where patman can move
     /*
-     1 = niður og hægri
-     2 = niður og vinstri
-     3 = upp, hægri, vinstri
-     4 = upp, niður, hægri
-     5 = upp, niður, vinstri
-     6 = hægri, vinstri, niður
-     7 = upp, vinstri
-     8 = hægri, upp
+     1 = down, right 1  3
+     2 = down, left  2  3
+     3 = up, right, left 1 2 4
+     4 = up, down, right  1 3 4
+     5 = up, down, left  2  3 4
+     6 = right, left, down   1  2  3
+     7 = up, left  2 4
+     8 = right, up  1 4
 
      */
 
@@ -130,6 +130,21 @@ function findTileSprite(letter) {
         case "o" : return g_sprites.tilesredbull;
         default: return g_sprites.tiles0;
     }
+}
+
+function findWhereCanGo(number) {
+    switch(number){
+
+        case 1 : return [1,3];
+        case 2 : return [2,3];
+        case 3 : return [1,2,4];
+        case 4 : return [1,3,4];
+        case 5 : return [2,3,4];
+        case 6 : return [1,2,3];
+        case 7 : return [2,4];
+        case 8 : return [1,4];
+    }
+
 }
 
 
