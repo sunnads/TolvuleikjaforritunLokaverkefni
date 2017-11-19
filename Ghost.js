@@ -70,7 +70,7 @@ Chost.prototype.taketHit = function () {
 
 Ghost.prototype.getRandom = function () {
 
-      // console.log(this.changeMovement());
+       console.log(this.changeMovement());
       return Math.floor((Math.random() * 4) + 1);
 
 
