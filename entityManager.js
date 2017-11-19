@@ -95,8 +95,8 @@ generateMaze : function(descr) {
 
 
 generateGhost : function(descr) {
-        this._ghost.push(new Ghost(descr));
-    },
+    this._ghost.push(new Ghost(descr));
+},
 
 generatePacman : function(descr) {
     this._pacman.push(new Pacman(descr));

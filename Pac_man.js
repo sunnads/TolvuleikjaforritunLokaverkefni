@@ -56,7 +56,8 @@ Pacman.prototype.update = function () {
         }
     }}
     this.animatePacman();
-    //this.checkDot();
+    this.checkDot();
+    this.checkRedBull();
     this.moving = false;
 };
 
@@ -115,9 +116,23 @@ Pacman.prototype.move = function () {
         }
     }
 
-
 };
 
+Pacman.prototype.checkDot = function () {
+
+    if(" " === Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1]){
+        Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1] = "x";
+
+    }
+};
+
+Pacman.prototype.checkRedBull = function () {
+
+    if("o" === Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1]){
+        Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1] = "x";
+
+    }
+};
 
 Pacman.prototype.canMove =function(y,x) {
 

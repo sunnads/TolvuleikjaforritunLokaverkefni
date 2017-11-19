@@ -152,7 +152,7 @@ function buildMaze(k,ctx) {
     k.cx = 0;
 }
 
-
+/*
 Maze.prototype.dotsEaten =function (k) {
 
     var pacY = Pacman.prototype.row;
@@ -163,7 +163,7 @@ Maze.prototype.dotsEaten =function (k) {
 
     }
 };
-
+*/
 Maze.prototype.update = function (du) {
 
     var pacY = Pacman.prototype.row;

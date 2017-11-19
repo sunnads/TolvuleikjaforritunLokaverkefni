@@ -155,7 +155,7 @@ Ghost.prototype.move = function () {
 
 Ghost.prototype.changeMovement =function(y,x) {
 
-    var nextMove = Maze.prototype.g_maze[0].mazeGrid[this.row+y-1][this.col+x-1];
+    var nextMove = Maze.prototype.g_maze[0].mazeGrid[this.row-1][this.col-1];
     if(nextMove === 1 || nextMove === 2 || nextMove === 3|| nextMove === 4 || nextMove === 5 || nextMove === 6) {
         console.log("changeMovement");
         return true;
