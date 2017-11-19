@@ -129,13 +129,17 @@ Pacman.prototype.reset = function () {
 
 
 Pacman.prototype.render = function (ctx) {
-    ctx.font = "15px Comic Sans MS";
-    ctx.fillStyle = "yellow";
+    ctx.font = "20px Comic Sans MS ";
+    ctx.fillStyle = "white";
     ctx.textAlign = "center";
-    ctx.fillText(this.row, 15, 50);
-    ctx.fillText(this.col, 15, 70);
+    ctx.fillText(this.row, 105, 450);
+    ctx.fillText(this.col, 105, 475);
     this.sprite.scale = this.scale;
     this.animatePacman();
     this.sprite.drawWrappedCentredAt(
         ctx, this.cx, this.cy, this.rotation);
+    ctx.fillText("Score: ", 60, 450);
+    ctx.fillText("Lives:", 470, 450);
+
+
 };
