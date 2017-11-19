@@ -124,9 +124,10 @@ Pacman.prototype.canMove =function(y,x) {
     var nextTile = Maze.prototype.g_maze[0].mazeCode[this.row+y-1][this.col+x-1];
     if(nextTile === " " || nextTile === "x" || nextTile === "o") {
         return true;
+        console.log("canMove");
     }
     return false;
-}
+};
 
 
 Pacman.prototype.mouthMove = function () {
