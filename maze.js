@@ -134,19 +134,16 @@ function findTileSprite(letter) {
 
 
 function buildMaze(k,ctx) {
+  //  Maze.prototype.dotsEaten(k);
     for(var r = 0; r<k.g_maze[0].mazeCode.length; r++){ // rows
         k.cy += 28;
         k.cx = 0;
         for(var c = 0; c<k.g_maze[0].mazeCode[r].length; c++) {  // columns
             k.cx += 28;
-            //var Tile = g_sprites[findTile(k.g_maze[0].mazeCode[r][c])];
-            //var Tile = g_sprites.tileType.k.mazeCode[r][c]
             var sprite = findTileSprite(k.g_maze[0].mazeCode[r][c]);
             //console.log(sprite);
             //console.log(k.g_maze[0].mazeCode[r][c]);
             //console.log("cx: "+k.cx+" cy: "+k.cy+" r:"+r+" c:"+c);
-            //var tile = g_sprites.sprite;
-            //console.log(tile);
             sprite.drawWrappedCentredAt(ctx, k.cx, k.cy, k.rotation);
             k.mazeTiles.push(sprite);
         }
@@ -154,6 +151,7 @@ function buildMaze(k,ctx) {
     k.cy = 0;
     k.cx = 0;
 }
+
 
 Maze.prototype.dotsEaten =function (k) {
 
@@ -168,11 +166,31 @@ Maze.prototype.dotsEaten =function (k) {
 
 Maze.prototype.update = function (du) {
 
-    Maze.prototype.dotsEaten(this);
+    var pacY = Pacman.prototype.row;
+    var pacX = Pacman.prototype.col;
+
+    if(" " === this.g_maze[0].mazeCode[pacY][pacX]){
+        this.g_maze[0].mazeCode[pacY][pacX] = "x";
+
+    }
+
 };
 
 Maze.prototype.render = function (ctx) {
 
+    for(var r = 0; r<this.g_maze[0].mazeCode.length; r++){ // rows
+        this.cy += 28;
+        this.cx = 0;
+        for(var c = 0; c<this.g_maze[0].mazeCode[r].length; c++) {  // columns
+            this.cx += 28;
+            var sprite = findTileSprite(this.g_maze[0].mazeCode[r][c]);
+            sprite.drawWrappedCentredAt(ctx, this.cx, this.cy, this.rotation);
+            this.mazeTiles.push(sprite);
+        }
+    }
+    this.cy = 0;
+    this.cx = 0;
 
-    buildMaze(this,ctx);
+
+    //buildMaze(this,ctx);
 };

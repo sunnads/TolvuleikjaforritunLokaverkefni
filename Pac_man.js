@@ -30,7 +30,6 @@ Pacman.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
 
 // Initial, inheritable, default values
 
-Pacman.prototype.animate= [];
 Pacman.prototype.animationstate = 0;
 Pacman.prototype.direction = 3;
 Pacman.prototype.row = 9;
@@ -47,7 +46,20 @@ Pacman.prototype.rotation = 0;
 
 Pacman.prototype.update = function () {
     this.move();
+    if(this.moving){
+    if(g_frameCounter%5 ===0) {
+        if (this.animationstate < 3) {
+            this.animationstate += 1;
+        }
+        else {
+            this.animationstate = 0;
+        }
+    }}
+    this.animatePacman();
+    //this.checkDot();
+    this.moving = false;
 };
+
 
 Pacman.prototype.animatePacman = function () {
     switch(this.direction){
@@ -56,9 +68,9 @@ Pacman.prototype.animatePacman = function () {
         case 3 : this.rotation = 0; break;
         case 4 : this.rotation = 3; break;
     }
-    //this.animate = [g_sprites.patman1 ,g_sprites.patman2, g_sprites.patman3, g_sprites.patman2];
-    //this.sprite = this.animate[this.animationstate];
+
 }
+
 
 Pacman.prototype.move = function () {
 
@@ -69,6 +81,7 @@ Pacman.prototype.move = function () {
             this.cx = this.col*28;
             this.cy += -this.movespeed;
             this.row = Math.round(this.cy/28);
+            this.moving = true;
         }
     }
     else if(keys[this.KEY_DOWN]){
@@ -78,6 +91,7 @@ Pacman.prototype.move = function () {
             this.cx = this.col*28;
             this.cy += this.movespeed;
             this.row = Math.round(this.cy/28);
+            this.moving = true;
         }
     }
     else if(keys[this.KEY_RIGHT]){
@@ -87,6 +101,7 @@ Pacman.prototype.move = function () {
             this.cx += this.movespeed;
             this.cy = this.row*28;
             this.col = Math.round(this.cx/28);
+            this.moving = true;
         }
     }
     else if(keys[this.KEY_LEFT]){
@@ -96,8 +111,11 @@ Pacman.prototype.move = function () {
             this.cx += -this.movespeed;
             this.cy = this.row*28;
             this.col = Math.round(this.cx/28);
+            this.moving = true;
         }
     }
+
+
 };
 
 
@@ -110,9 +128,23 @@ Pacman.prototype.canMove =function(y,x) {
     return false;
 }
 
-Pacman.prototype.getRadius = function () {
-    return (this.sprite.width / 2) * 0.9;
-};
+
+Pacman.prototype.mouthMove = function () {
+
+    if(this.animationstate===0){
+        return g_sprites.patman1;
+    }
+    else if(this.animationstate===1){
+        return g_sprites.patman2;
+    }
+    else if(this.animationstate===2){
+        return g_sprites.patman3;
+    }
+    else if(this.animationstate===3){
+        return g_sprites.patman2;
+    }
+
+}
 
 
 Pacman.prototype.reset = function () {
@@ -134,8 +166,8 @@ Pacman.prototype.render = function (ctx) {
     ctx.textAlign = "center";
     ctx.fillText(this.row, 15, 50);
     ctx.fillText(this.col, 15, 70);
-    this.sprite.scale = this.scale;
-    this.animatePacman();
-    this.sprite.drawWrappedCentredAt(
+    var sprite = this.mouthMove();
+    sprite.scale = this.scale;
+    sprite.drawWrappedCentredAt(
         ctx, this.cx, this.cy, this.rotation);
 };
