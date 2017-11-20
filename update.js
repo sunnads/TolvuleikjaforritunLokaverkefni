@@ -58,7 +58,8 @@ var g_isUpdatePaused = true;
 function shouldSkipUpdate() {
     if (eatKey(KEY_PAUSE)) {
         g_isUpdatePaused = !g_isUpdatePaused;
-        canvas.height = 0;
+        g_canvas1.height = 0;
+        g_canvas1.width = 0;
 
         /*
         var g_canvas1 = document.getElementById("startCanvas");

@@ -118,7 +118,7 @@ function updateSimulation(du) {
 
         var requiredImages = {
 
-            openingPage5: "images/openingPage5 .png",
+            openingPage6: "images/openingPage6.png",
             patman1: "images/patman1.png",
             patman2: "images/patman2.png",
             patman3: "images/patman3.png",
@@ -154,7 +154,7 @@ function updateSimulation(du) {
 
     function preloadDone() {
 
-        g_sprites.openingPage5 = new Sprite(g_images.openingPage5);
+        g_sprites.openingPage6 = new Sprite(g_images.openingPage6);
         g_sprites.patman1 = new Sprite(g_images.patman1);
         g_sprites.patman2 = new Sprite(g_images.patman2);
         g_sprites.patman3 = new Sprite(g_images.patman3);
@@ -183,7 +183,7 @@ function updateSimulation(du) {
         g_sprites.tilesredbull = new Sprite(g_images.tilesredbull);
         g_sprites.tilesdot = new Sprite(g_images.tilesdot);
 
-        g_sprites.openingPage5.drawWrappedCentredAt(g_ctx1,801,100,0);
+        g_sprites.openingPage6.drawWrappedCentredAt(g_ctx1,801,100,0);
 
         entityManager.init();
         createInitialMaze();

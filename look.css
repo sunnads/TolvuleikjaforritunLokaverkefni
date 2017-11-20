@@ -5,18 +5,20 @@ body{
 }
 #startCanvas{
     position: absolute;
-    margin-top:50px;
+    z-index: 1;
+    margin-top:0px;
     margin-left: 0px;
     margin-right: 0px;
     left: 0;
     right: 0;
+
 }
 #myCanvas{
     position: absolute;
-    margin-top:50px;
+    z-index: -1;
+    margin-top:0px;
     margin-left: 0px;
-    margin-right: 0pxp;
+    margin-right: 0px;
     left: 0;
     right: 0;
-
 }
