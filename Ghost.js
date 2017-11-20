@@ -171,7 +171,7 @@ Ghost.prototype.move = function () {
 
 
 Ghost.prototype.moveGhost2 = function () {
-
+    console.log("gothisway í move ", this.goThisway );
     // Ghost moves to Right
     if (this.goThisway === 1){
         this.cx += this.movespeed;
@@ -304,39 +304,49 @@ Ghost.prototype.findShortestWay = function () {
     var checkRow = Math.abs(rowPatman - rowGhost2);
     var checkCol = Math.abs(colPatman - colGhost2);
 
-    if (array != null && array.includes(1)){
-        var directionRight = Math.abs(rowPatman - rowGhost2+1);
-        if (directionRight < checkRow ){
-            console.log("En kemst ég hingað inn ");
-            return this.goThisway = 1;
+    console.log(array);
+    console.log(array.includes(1));
+    console.log("colPat", colPatman);
+    console.log("rowPat", rowPatman);
+    console.log("checkcolghost", colGhost2 );
+    console.log("checkrowghost", rowGhost2 );
+    console.log("chekCol  ", checkCol);
 
+    if (array != null && array.includes(1)){
+        var directionRight = Math.abs(colPatman - (colGhost2+1));
+        console.log("directionright", directionRight);
+        if (directionRight < checkCol ){
+            console.log("En kemst ég hingað inn 1");
+
+            return this.goThisway = 1;
         }
     }
     else if (array != null && array.includes(2)){
-        var directionLeft = Math.abs(rowPatman - rowGhost2-1);
-            if (directionLeft < checkRow ) {
-                console.log("En kemst ég hingað inn ");
+        var directionLeft = Math.abs(colPatman - (colGhost2-1));
+            if (directionLeft < checkCol ) {
+                console.log("En kemst ég hingað inn 2 ");
                 return this.goThisway =2;
 
             }
     }
     else if (array != null && array.includes(3)){
-        var directionDown = Math.abs(colPatman - checkCol+1);
-            if (directionDown < checkCol) {
-                console.log("En kemst ég hingað inn ");
+        var directionDown = Math.abs(rowPatman - (checkRow+1));
+            if (directionDown < checkRow) {
+                console.log("En kemst ég hingað inn 3");
                 return this.goThisway =3;
             }
     }
     else if (array != null && array.includes(4)){
-        var directionUp = Math.abs(colPatman - checkCol - 1);
-        if (directionUp < checkCol){
-            console.log("En kemst ég hingað inn ");
+        var directionUp = Math.abs(rowPatman - (checkRow - 1));
+        if (directionUp < checkRow){
+            console.log("En kemst ég hingað inn 4");
             return this.goThisway =4;
             }
     }
     else  {
-        return this.whereToMove();
         console.log("random gildið ");
+        return this.whereToMove();
+
     }
 
 };
