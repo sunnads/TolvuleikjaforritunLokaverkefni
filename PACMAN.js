@@ -27,6 +27,32 @@ function createInitialMaze() {
     });
     entityManager.generatePacman({
     });
+   entityManager.generateGhost({
+        row: 4,
+        col: 13,
+        cx : 13*28,
+        cy : 4*28,
+        ghostNr : 1
+    });
+    entityManager.generateGhost({
+        row: 4,
+        col: 14,
+        cx : 14*28,
+        cy : 4*28,
+        ghostNr : 2
+    });
+    entityManager.generateGhost({
+        row: 4,
+        col: 15,
+        cx : 15*28,
+        cy : 4*28,
+        ghostNr : 3
+    });
+    /*    entityManager.generateGhost({
+        cx : 200,
+        cy : 200,
+        ghostNr : 4
+    });*/
 
 
 }
@@ -93,7 +119,12 @@ function updateSimulation(du) {
             patman1: "images/patman1.png",
             patman2: "images/patman2.png",
             patman3: "images/patman3.png",
+
             ghost1: "images/ghost1.png",
+            ghost2: "images/ghost2.png",
+            ghost3: "images/ghost3.png",
+            ghost4: "images/ghost4.png",
+
             tiles0: "images/tiles0.jpg",
             tiles1: "images/tiles1.jpg",
             tiles2: "images/tiles2.jpg",
@@ -128,7 +159,11 @@ function updateSimulation(du) {
         g_sprites.patman1 = new Sprite(g_images.patman1);
         g_sprites.patman2 = new Sprite(g_images.patman2);
         g_sprites.patman3 = new Sprite(g_images.patman3);
+
         g_sprites.ghost1 = new Sprite(g_images.ghost1);
+        g_sprites.ghost2 = new Sprite(g_images.ghost2);
+        g_sprites.ghost3 = new Sprite(g_images.ghost3);
+        g_sprites.ghost4 = new Sprite(g_images.ghost4);
 
         g_sprites.tiles0 = new Sprite(g_images.tiles0);
         g_sprites.tiles1 = new Sprite(g_images.tiles1);

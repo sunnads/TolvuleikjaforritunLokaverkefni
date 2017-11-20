@@ -41,14 +41,12 @@ _generateMaze : function() {
 },
 
 _generateGhost : function() {
-  /*  var i,
+    /*var i,
         NUM_GHOSTS = 4;
 
     for (i = 0; i < NUM_GHOSTS; ++i) {
-
     }*/
-        this.generateGhost();
-
+    this.generateGhost();
 },
 
 
@@ -95,6 +93,7 @@ generateMaze : function(descr) {
 
 
 generateGhost : function(descr) {
+
     this._ghost.push(new Ghost(descr));
 },
 
