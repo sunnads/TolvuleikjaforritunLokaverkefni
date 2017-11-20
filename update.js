@@ -53,11 +53,17 @@ function update(dt) {
 var KEY_PAUSE = 'P'.charCodeAt(0);
 var KEY_STEP  = 'O'.charCodeAt(0);
 
-var g_isUpdatePaused = false;
+var g_isUpdatePaused = true;
 
 function shouldSkipUpdate() {
     if (eatKey(KEY_PAUSE)) {
         g_isUpdatePaused = !g_isUpdatePaused;
+        canvas.height = 0;
+
+        /*
+        var g_canvas1 = document.getElementById("startCanvas");
+        var g_ctx1 = g_canvas1.getContext("2d");
+         */
     }
     return g_isUpdatePaused && !eatKey(KEY_STEP);    
 }

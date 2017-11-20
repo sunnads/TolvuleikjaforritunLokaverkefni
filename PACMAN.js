@@ -7,6 +7,8 @@
 "use strict";
 
 /* jshint browser: true, devel: true, globalstrict: true */
+var g_canvas1 = document.getElementById("startCanvas");
+var g_ctx1 = g_canvas1.getContext("2d");
 
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
@@ -16,6 +18,7 @@ var g_ctx = g_canvas.getContext("2d");
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
+var gameOn = false;
 
 // ====================
 // CREATE INITIAL GAME
@@ -27,7 +30,32 @@ function createInitialMaze() {
     });
     entityManager.generatePacman({
     });
-
+    entityManager.generateGhost({
+        row: 4,
+        col: 13,
+        cx : 13*28,
+        cy : 4*28,
+        ghostNr : 1
+    });
+    entityManager.generateGhost({
+        row: 4,
+        col: 14,
+        cx : 14*28,
+        cy : 4*28,
+        ghostNr : 2
+    });
+    entityManager.generateGhost({
+        row: 4,
+        col: 15,
+        cx : 15*28,
+        cy : 4*28,
+        ghostNr : 3
+    });
+    /*    entityManager.generateGhost({
+        cx : 200,
+        cy : 200,
+        ghostNr : 4
+    });*/
 
 }
 
@@ -90,6 +118,7 @@ function updateSimulation(du) {
 
         var requiredImages = {
 
+            openingPage5: "images/openingPage5 .png",
             patman1: "images/patman1.png",
             patman2: "images/patman2.png",
             patman3: "images/patman3.png",
@@ -125,6 +154,7 @@ function updateSimulation(du) {
 
     function preloadDone() {
 
+        g_sprites.openingPage5 = new Sprite(g_images.openingPage5);
         g_sprites.patman1 = new Sprite(g_images.patman1);
         g_sprites.patman2 = new Sprite(g_images.patman2);
         g_sprites.patman3 = new Sprite(g_images.patman3);
@@ -152,6 +182,8 @@ function updateSimulation(du) {
         g_sprites.tileskristall = new Sprite(g_images.tileskristall);
         g_sprites.tilesredbull = new Sprite(g_images.tilesredbull);
         g_sprites.tilesdot = new Sprite(g_images.tilesdot);
+
+        g_sprites.openingPage5.drawWrappedCentredAt(g_ctx1,801,100,0);
 
         entityManager.init();
         createInitialMaze();

@@ -1,0 +1,22 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background: #ffffff;
+}
+#startCanvas{
+    position: absolute;
+    margin-top:50px;
+    margin-left: 0px;
+    margin-right: 0px;
+    left: 0;
+    right: 0;
+}
+#myCanvas{
+    position: absolute;
+    margin-top:50px;
+    margin-left: 0px;
+    margin-right: 0pxp;
+    left: 0;
+    right: 0;
+
+}
