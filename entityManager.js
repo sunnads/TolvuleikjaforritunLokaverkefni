@@ -27,12 +27,10 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-_tiles : [],
-//_ghosts  : [],
+_ghost  : [],
 //_pellets : [],  // food for pacman
 //_pills   : [],  // power up pills for pacman
-//_pacman  : [],
-
+_pacman  : [],
 _maze : [],
 
 // "PRIVATE" METHODS
@@ -42,18 +40,15 @@ _generateMaze : function() {
     this.generateMaze();
 },
 
-_generateTiles : function () {
-
-    this._generateTiles()
-},
-/*
-_generateGhosts : function() {
-    var i,
+_generateGhost : function() {
+  /*  var i,
         NUM_GHOSTS = 4;
 
     for (i = 0; i < NUM_GHOSTS; ++i) {
+
+    }*/
         this.generateGhost();
-    }
+
 },
 
 
@@ -62,7 +57,7 @@ _generatePacman  : function () {
         this.generatePacman();
 },
 
-*/
+
 
 _forEachOf: function(aCategory, fn) {
     for (var i = 0; i < aCategory.length; ++i) {
@@ -82,12 +77,15 @@ KILL_ME_NOW : -1,
 //
 deferredSetup : function () {
 
-    this._categories = [this._maze,this._tiles];
+    this._categories = [this._maze,this._pacman,this._ghost];
 },
+
+
 
 init: function() {
     this._generateMaze();
-    this._generateTiles();
+    this._generatePacman();
+    this._generateGhost();
 
 },
 
@@ -95,20 +93,16 @@ generateMaze : function(descr) {
     this._maze.push(new Maze(descr));
 },
 
-generateTiles : function(descr) {
-    this._tiles.push(new Tiles(descr));
-},
-/*
+
 generateGhost : function(descr) {
-        this._ghosts.push(new Ghost(descr));
-    },
+    this._ghost.push(new Ghost(descr));
+},
 
 generatePacman : function(descr) {
-    this._pacman.push(new Pac_man(descr));
-},
+    this._pacman.push(new Pacman(descr));
 
-*/
-  update: function(du) {
+},
+update: function(du) {
 
         for (var c = 0; c < this._categories.length; ++c) {
 

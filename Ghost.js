@@ -36,9 +36,6 @@ Ghost.prototype.fireSound = new Audio(
     "sounds/bulletFire.ogg");
 
 // Initial, inheritable, default values
-Ghost.prototype.animate= [];
-Ghost.prototype.animationstate = 0;
-Ghost.prototype.direction = 1;
 Ghost.prototype.row = 4;
 Ghost.prototype.col = 12;
 Ghost.prototype.cx = 12*28;
@@ -49,7 +46,8 @@ Ghost.prototype.scale = 0.15;
 Ghost.prototype.movespeed = 2;
 Ghost.prototype.rotation = 0;
 Ghost.prototype.goThisway = 2;
-Ghost.prototype.whereNextMove = 0;
+Ghost.prototype.lastChangeRow = 0;
+Ghost.prototype.lastChangeCol = 0;
 
 
 Ghost.prototype.update = function (du) {
@@ -77,59 +75,67 @@ Ghost.prototype.getRandom = function () {
 
 Ghost.prototype.move = function () {
 
-    // Ghost moves to Rightp
+    // Ghost moves to Right
     if (this.goThisway === 1){
-        this.direction = 3;
         this.cx += this.movespeed;
         this.cy = this.row * 28;
         this.col = Math.round(this.cx / 28);
         console.log(this.goThisway, "gothisway gildi");
-        if (g_frameCounter%10 === 0 && this.changeMovement() ) {
-            if (this.preventToTurnaround()) {
+        if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
+            var tryDirection = this.whereToMove();
+            if(2!==(tryDirection)) {
+                this.lastChangeRow = this.row;
+                this.lastChangeCol = this.col;
                 console.log("whereTomove test testidi í test");
                 console.log(this.whereToMove());
-                //this.goThisway = this.whereToMove();
+                this.goThisway = tryDirection;
             }
         }
     }
     // Ghost moves to Left
     else if (this.goThisway === 2){
-        this.direction = 4;
         this.cx += -this.movespeed;
         this.cy = this.row * 28;
         this.col = Math.round(this.cx / 28);
         console.log(this.goThisway, "gothisway gildi");
-        if (g_frameCounter%10 === 0 && this.changeMovement()) {
-            if (this.preventToTurnaround()) {
-              //  this.goThisway = this.whereToMove();
+        if (this.changeMovement() && (this.lastChangeRow !== this.row ||this.lastChangeCol !== this.col)) {
+            var tryDirection = this.whereToMove();
+            if(1!==(tryDirection)) {
+                this.lastChangeRow = this.row;
+                this.lastChangeCol = this.col;
+                this.goThisway = tryDirection;
                 console.log("If inn í ifinu  nr 22");
             }
         }
     }
     //Ghost moves Down
     else if (this.goThisway === 3){
-        this.direction = 2;
         this.cx = this.col * 28;
         this.cy += this.movespeed;
         this.row = Math.round(this.cy / 28);
         console.log(this.goThisway, "gothisway gildi");
-        if (g_frameCounter%10 === 0 && this.changeMovement()) {
-            if ( this.preventToTurnaround()) {
-               // this.goThisway = this.whereToMove();
+        if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
+            var tryDirection = this.whereToMove();
+            if(4!==(tryDirection)) {
+                this.lastChangeRow = this.row;
+                this.lastChangeCol = this.col;
+                this.goThisway = tryDirection;
                 console.log("If inn í ifinu  33");
             }
         }
     }
     // Ghost moves Up
     else if (this.goThisway === 4) {
-        this.direction = 1;
         this.cx = this.col * 28;
         this.cy += -this.movespeed;
         this.row = Math.round(this.cy / 28);
         console.log(this.goThisway, "gothisway gildi");
-        if (g_frameCounter%10 === 0 && this.changeMovement()) {
-            if(this.preventToTurnaround()) {
-               // this.goThisway = this.whereToMove();
+        if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
+            var tryDirection = this.whereToMove();
+            if(3!==(tryDirection)) {
+                this.lastChangeRow = this.row;
+                this.lastChangeCol = this.col;
+                this.goThisway = tryDirection;
                 console.log("If inn í ifinu  44");
             }
         }
@@ -149,7 +155,7 @@ Ghost.prototype.changeMovement = function() {
 };
 
 
-Ghost.prototype.whereToMove = function (number) {
+Ghost.prototype.whereToMove = function () {
     var thisNextMove = Maze.prototype.g_maze[0].mazeGrid[this.row-1][this.col-1];
     var array = findWhereCanGo(thisNextMove);
     var item = array[Math.floor(Math.random()*array.length)];
@@ -157,33 +163,6 @@ Ghost.prototype.whereToMove = function (number) {
     return item;
 };
 
-Ghost.prototype.preventToTurnaround = function(){
-
-    // er ekki að kalla á rett next move er td að fara rigth en hún skilar að ség sé að fara left
-    // hvað þarf að laga ?
-    //console.log("hvar er where to fyrir", this.whereToMove());
-    var nextMove = this.whereToMove(); //this.whereToMove();
-    console.log("test1", this.goThisway);
-    this.goThisway = nextMove;
-    console.log ("test2", this.goThisway);
-
-    var compareNextMove = this.findDirecPreventTurnaround();
-    console.log("compareNextMove",compareNextMove);
-    console.log("nextmove", nextMove);
-
-
-
-
-    if (nextMove === compareNextMove){
-        // fæ aldrei false
-        console.log("false");
-        return false;
-        this.goThisway = this.whereToMove();
-
-    }
-    console.log("true");
-    return true;
-};
 
 Ghost.prototype.findDirecPreventTurnaround = function (){
     console.log("switch case ", this.goThisway);
@@ -204,11 +183,6 @@ Ghost.prototype.canMove = function(y,x) {
         return true;
     }
     return false;
-};
-
-
-Ghost.prototype.getRadius = function () {
-    return (this.sprite.width / 2) * 0.9;
 };
 
 Ghost.prototype.reset = function () {
