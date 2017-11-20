@@ -172,16 +172,6 @@ Ghost.prototype.move = function () {
 
 Ghost.prototype.moveGhost2 = function () {
 
-    var rowPatman = entityManager._pacman[0].row;
-    var colPatman = entityManager._pacman[0].col;
-    var rowGhost2 = this.row;
-    var colGhost2 = this.col;
-    console.log("H'ERNA !!!!!!!!!!!!!!!!!!!!!!!");
-    console.log(rowPatman, colPatman, rowGhost2, colGhost2);
-
-    var checkRow = rowPatman - rowGhost2;
-    var checkcol = colPatman - colGhost2;
-
     // Ghost moves to Right
     if (this.goThisway === 1){
         this.cx += this.movespeed;
@@ -194,7 +184,7 @@ Ghost.prototype.moveGhost2 = function () {
         console.log(this.goThisway, "gothisway gildi");
         //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
-            var tryDirection = this.whereToMove();
+            var tryDirection = this.findShortestWay();
             if(2!==(tryDirection)) {
                 this.lastChangeRow = this.row;
                 this.lastChangeCol = this.col;
@@ -216,7 +206,7 @@ Ghost.prototype.moveGhost2 = function () {
         console.log(this.goThisway, "gothisway gildi");
         //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row ||this.lastChangeCol !== this.col)) {
-            var tryDirection = this.whereToMove();
+            var tryDirection = this.findShortestWay();
             if(1!==(tryDirection)) {
                 this.lastChangeRow = this.row;
                 this.lastChangeCol = this.col;
@@ -237,7 +227,7 @@ Ghost.prototype.moveGhost2 = function () {
         console.log(this.goThisway, "gothisway gildi");
         //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
-            var tryDirection = this.whereToMove();
+            var tryDirection = this.findShortestWay();
             if(4!==(tryDirection)) {
                 this.lastChangeRow = this.row;
                 this.lastChangeCol = this.col;
@@ -258,7 +248,7 @@ Ghost.prototype.moveGhost2 = function () {
         console.log(this.goThisway, "gothisway gildi");
         //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
-            var tryDirection = this.whereToMove();
+            var tryDirection = this.findShortestWay();
             if(3!==(tryDirection)) {
                 this.lastChangeRow = this.row;
                 this.lastChangeCol = this.col;
@@ -284,28 +274,69 @@ Ghost.prototype.changeMovement = function() {
 
 
 Ghost.prototype.whereToMove = function () {
-    var thisNextMove = Maze.prototype.g_maze[0].mazeGrid[this.row-1][this.col-1];
-    var array = findWhereCanGo(thisNextMove);
+    var NextMove = Maze.prototype.g_maze[0].mazeGrid[this.row-1][this.col-1];
+    var array = findWhereCanGo(NextMove);
     var item = array[Math.floor(Math.random()*array.length)];
 
     return item;
 };
 
-
-Ghost.prototype.findShortestWay = function () {
-    var thisNextMove = Maze.prototype.g_maze[0].mazeGrid[this.row-1][this.col-1];
-    var array = findWhereCanGo(thisNextMove);
-
+Ghost.prototype.addToDirection = function (direction) {
     switch(direction){
         case 1 : return this.row +1;
         case 2 : return this.row -1;
         case 3 : return this.col +1;
         case 4 : return this.col -1;
     }
-    this.contains()
+};
 
-    if (array.includes(1)){
-        
+Ghost.prototype.findShortestWay = function () {
+    console.log("kem ég hingað");
+    var NextMove = Maze.prototype.g_maze[0].mazeGrid[this.row-1][this.col-1];
+    var array = findWhereCanGo(NextMove);
+
+    var rowPatman = entityManager._pacman[0].row;
+    var colPatman = entityManager._pacman[0].col;
+    var rowGhost2 = this.row;
+    var colGhost2 = this.col;
+    console.log(rowPatman, colPatman, rowGhost2, colGhost2);
+
+    var checkRow = Math.abs(rowPatman - rowGhost2);
+    var checkCol = Math.abs(colPatman - colGhost2);
+
+    if (array != null && array.includes(1)){
+        var directionRight = Math.abs(rowPatman - rowGhost2+1);
+        if (directionRight < checkRow ){
+            console.log("En kemst ég hingað inn ");
+            return this.goThisway = 1;
+
+        }
+    }
+    else if (array != null && array.includes(2)){
+        var directionLeft = Math.abs(rowPatman - rowGhost2-1);
+            if (directionLeft < checkRow ) {
+                console.log("En kemst ég hingað inn ");
+                return this.goThisway =2;
+
+            }
+    }
+    else if (array != null && array.includes(3)){
+        var directionDown = Math.abs(colPatman - checkCol+1);
+            if (directionDown < checkCol) {
+                console.log("En kemst ég hingað inn ");
+                return this.goThisway =3;
+            }
+    }
+    else if (array != null && array.includes(4)){
+        var directionUp = Math.abs(colPatman - checkCol - 1);
+        if (directionUp < checkCol){
+            console.log("En kemst ég hingað inn ");
+            return this.goThisway =4;
+            }
+    }
+    else  {
+        return this.whereToMove();
+        console.log("random gildið ");
     }
 
 };
