@@ -48,11 +48,6 @@ function createInitialMaze() {
         cy : 4*28,
         ghostNr : 3
     });
-    /*    entityManager.generateGhost({
-        cx : 200,
-        cy : 200,
-        ghostNr : 4
-    });*/
 
 
 }

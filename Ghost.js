@@ -1,5 +1,5 @@
 // ======
-// BULLET
+// GHOSTS
 // ======
 
 "use strict";
@@ -17,8 +17,7 @@ function Ghost(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-    //this.sprite = this.sprite || this.ghostSprite();
-    var sprite = this.ghostSprite();
+
 
 /*
     // Diagnostics to check inheritance stuff
@@ -39,21 +38,19 @@ Ghost.prototype.col = 12;
 Ghost.prototype.cx = 12*28;
 Ghost.prototype.cy = 4*28;
 Ghost.prototype.scale = 0.15
-//Chost.prototype.moving = false;
-//Chost.prototype.isDeadNow =false;
+//Ghost.prototype.moving = false;
+Ghost.prototype.isDeadNow =false;
 Ghost.prototype.movespeed = 2;
 Ghost.prototype.rotation = 0;
 Ghost.prototype.goThisway = 2;
 Ghost.prototype.lastChangeRow = 0;
 Ghost.prototype.lastChangeCol = 0;
+Ghost.prototype.ghostNr = 1;
 
 Ghost.prototype.update = function (du) {
     this.move(du);
 };
 
-Ghost.prototype.animateGhost = function () {
-
-}
 Ghost.prototype.ghostSprite = function (){
 
     // Ghost.prototype.ghostNr = 1;
@@ -83,6 +80,9 @@ Ghost.prototype.getRandom = function () {
       return Math.floor((Math.random() * 4) + 1);
 }
 
+Ghost.prototype.hitPacman = function () {
+
+}
 
 Ghost.prototype.move = function () {
 
@@ -214,9 +214,9 @@ Ghost.prototype.reset = function () {
 
 Ghost.prototype.render = function (ctx) {
 
-    this.animateGhost();
 
-    this.sprite.drawWrappedCentredAt(
+    var sprite = this.ghostSprite();
+    sprite.drawWrappedCentredAt(
         ctx, this.cx, this.cy, this.rotation
     );
   /*  g_sprites.ghost3.drawWrappedCentredAt(

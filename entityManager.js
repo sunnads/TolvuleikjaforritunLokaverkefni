@@ -83,7 +83,7 @@ deferredSetup : function () {
 init: function() {
     this._generateMaze();
     this._generatePacman();
-    this._generateGhost();
+    //this._generateGhost();
 
 },
 

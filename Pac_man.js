@@ -1,5 +1,5 @@
 // ==========
-// SHIP STUFF
+// PATMAN
 // ==========
 
 "use strict";
