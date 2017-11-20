@@ -23,34 +23,50 @@ var g_ctx = g_canvas.getContext("2d");
 
 function createInitialMaze() {
 
+    openingSound.play();
     entityManager.generateMaze({
     });
-    entityManager.generatePacman({
-    });
-   entityManager.generateGhost({
-        row: 4,
-        col: 13,
-        cx : 13*28,
-        cy : 4*28,
-        ghostNr : 1
-    });
-    entityManager.generateGhost({
-        row: 4,
-        col: 14,
-        cx : 14*28,
-        cy : 4*28,
-        ghostNr : 2
-    });
-    entityManager.generateGhost({
-        row: 4,
-        col: 15,
-        cx : 15*28,
-        cy : 4*28,
-        ghostNr : 3
-    });
-
-
+        entityManager.generatePacman({});
+        entityManager.generateGhost({
+            row: 4,
+            col: 13,
+            cx: 13 * 28,
+            cy: 4 * 28,
+            ghostNr: 1,
+            resetRow: 4,
+            resetCol: 13,
+            resetCx: 13*28,
+            resetCy: 4*28,
+            resetGhostNr: 1
+        });
+        entityManager.generateGhost({
+            row: 4,
+            col: 14,
+            cx: 14 * 28,
+            cy: 4 * 28,
+            ghostNr: 2,
+            resetRow: 4,
+            resetCol: 14,
+            resetCx: 14*28,
+            resetCy: 4*28,
+            resetGhostNr: 2
+        });
+        entityManager.generateGhost({
+            row: 4,
+            col: 15,
+            cx: 15 * 28,
+            cy: 4 * 28,
+            ghostNr: 3,
+            resetRow: 4,
+            resetCol: 15,
+            resetCx: 15*28,
+            resetCy: 4*28,
+            resetGhostNr: 3
+        });
 }
+
+var openingSound = new Audio(
+    "sounds/opening_song.mp3");
 
 // =============
 // GATHER INPUTS
@@ -190,3 +206,4 @@ function updateSimulation(du) {
 
 // Kick it off
     requestPreloads();
+

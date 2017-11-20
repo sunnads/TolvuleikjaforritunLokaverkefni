@@ -38,7 +38,6 @@ Ghost.prototype.col = 12;
 Ghost.prototype.cx = 12*28;
 Ghost.prototype.cy = 4*28;
 Ghost.prototype.scale = 0.15
-//Ghost.prototype.moving = false;
 Ghost.prototype.isDeadNow =false;
 Ghost.prototype.movespeed = 2;
 Ghost.prototype.rotation = 0;
@@ -46,10 +45,18 @@ Ghost.prototype.goThisway = 2;
 Ghost.prototype.lastChangeRow = 0;
 Ghost.prototype.lastChangeCol = 0;
 Ghost.prototype.ghostNr = 1;
+Ghost.prototype.resetRow =0;
+Ghost.prototype.resetCol = 0;
+Ghost.prototype.resetCx = 0;
+Ghost.prototype.resetCy = 0;
+Ghost.prototype.resetGhostNr = 0;
+
 
 Ghost.prototype.update = function (du) {
-    this.hitPacman();
-    this.move(du);
+    if(g_frameCounter >=280){
+        this.hitPacman();
+        this.move(du);
+    }
 };
 
 Ghost.prototype.ghostSprite = function (){
@@ -203,14 +210,12 @@ Ghost.prototype.canMove = function(y,x) {
 };
 
 Ghost.prototype.reset = function () {
-    this.direction = 0;
-    this.row = 4;
-    this.col = 12;
-    this.cx = 4*28;
-    this.cy = 12*28;
+    this.row = this.resetRow;
+    this.col = this.resetCol;
+    this.cx = this.resetCx;
+    this.cy = this.resetCy;
     this.scale = 0.15;
-    this.moving = false;
-    this._isDeadNow =false;
+    this.ghostNr = this.resetGhostNr;
 };
 
 Ghost.prototype.halt = function () {

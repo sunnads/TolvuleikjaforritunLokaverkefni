@@ -201,7 +201,7 @@ Maze.prototype.winLevel = function (ctx) {
 };
 
 Maze.prototype.createKristall = function (k) {
-    if(g_frameCounter%200 ===0){
+    if(g_frameCounter%400 ===0){
         k.g_maze[0].mazeCode[8][11] = "kr";
         }
     };
