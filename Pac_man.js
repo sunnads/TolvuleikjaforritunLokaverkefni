@@ -49,14 +49,14 @@ Pacman.prototype.redBullMode = false;
 Pacman.prototype.update = function (du) {
     this.move(du);
     if(this.moving){
-    if(g_frameCounter%5 ===0) {
-        if (this.animationstate < 3) {
-            this.animationstate += 1;
-        }
-        else {
-            this.animationstate = 0;
-        }
-    }}
+        if(g_frameCounter%5 ===0) {
+            if (this.animationstate < 3) {
+                this.animationstate += 1;
+            }
+            else {
+                this.animationstate = 0;
+            }
+        }}
     this.animatePacman();
     this.checkDot();
     this.checkRedBull();
@@ -202,6 +202,10 @@ Pacman.prototype.mouthMove = function () {
     }
 
 }
+
+Pacman.prototype.wherePatmanIsY = function () {
+    return this.row;
+};
 
 
 Pacman.prototype.reset = function () {

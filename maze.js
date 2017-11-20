@@ -146,6 +146,8 @@ function findTileSprite(letter) {
  9 = allar áttir 1 2 3 4
 
  */
+
+// return array of direction for ghost
 function findWhereCanGo(number) {
     switch(number){
 
@@ -161,7 +163,6 @@ function findWhereCanGo(number) {
     }
 
 }
-
 
 function buildMaze(k,ctx) {
   //  Maze.prototype.dotsEaten(k);
