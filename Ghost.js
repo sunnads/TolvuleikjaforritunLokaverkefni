@@ -17,16 +17,14 @@ function Ghost(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-    this.sprite = this.sprite || g_sprites.ghost1;
-    // Make a noise when I am created (i.e. fired)
-    this.fireSound.play();
+    //this.sprite = this.sprite || this.ghostSprite();
+    var sprite = this.ghostSprite();
 
 /*
     // Diagnostics to check inheritance stuff
     this._bulletProperty = true;
     console.dir(this);
 */
-
 }
 
 Ghost.prototype = new Entity();
@@ -40,7 +38,7 @@ Ghost.prototype.row = 4;
 Ghost.prototype.col = 12;
 Ghost.prototype.cx = 12*28;
 Ghost.prototype.cy = 4*28;
-Ghost.prototype.scale = 0.15;
+Ghost.prototype.scale = 0.15
 //Chost.prototype.moving = false;
 //Chost.prototype.isDeadNow =false;
 Ghost.prototype.movespeed = 2;
@@ -49,14 +47,26 @@ Ghost.prototype.goThisway = 2;
 Ghost.prototype.lastChangeRow = 0;
 Ghost.prototype.lastChangeCol = 0;
 
-
 Ghost.prototype.update = function (du) {
     this.move(du);
-
 };
 
 Ghost.prototype.animateGhost = function () {
 
+}
+Ghost.prototype.ghostSprite = function (){
+
+    // Ghost.prototype.ghostNr = 1;
+    switch(this.ghostNr) {
+        case 1 : return g_sprites.ghost1
+            break;
+        case 2 : return g_sprites.ghost2
+            break;
+        case 3 : return g_sprites.ghost3
+            break;
+        case 4 : return g_sprites.ghost4
+            break;
+    }
 }
 
 /*
@@ -66,7 +76,8 @@ Chost.prototype.taketHit = function () {
     // Make a noise when I am zapped by another bullet
     //this.zappedSound.play();
 };*/
-        
+
+// random function not in use at the moment
 Ghost.prototype.getRandom = function () {
 
       return Math.floor((Math.random() * 4) + 1);
@@ -81,6 +92,7 @@ Ghost.prototype.move = function () {
         this.cy = this.row * 28;
         this.col = Math.round(this.cx / 28);
         console.log(this.goThisway, "gothisway gildi");
+        //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
             var tryDirection = this.whereToMove();
             if(2!==(tryDirection)) {
@@ -98,6 +110,7 @@ Ghost.prototype.move = function () {
         this.cy = this.row * 28;
         this.col = Math.round(this.cx / 28);
         console.log(this.goThisway, "gothisway gildi");
+        //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row ||this.lastChangeCol !== this.col)) {
             var tryDirection = this.whereToMove();
             if(1!==(tryDirection)) {
@@ -114,6 +127,7 @@ Ghost.prototype.move = function () {
         this.cy += this.movespeed;
         this.row = Math.round(this.cy / 28);
         console.log(this.goThisway, "gothisway gildi");
+        //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
             var tryDirection = this.whereToMove();
             if(4!==(tryDirection)) {
@@ -130,6 +144,7 @@ Ghost.prototype.move = function () {
         this.cy += -this.movespeed;
         this.row = Math.round(this.cy / 28);
         console.log(this.goThisway, "gothisway gildi");
+        //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
             var tryDirection = this.whereToMove();
             if(3!==(tryDirection)) {
@@ -200,9 +215,14 @@ Ghost.prototype.reset = function () {
 Ghost.prototype.render = function (ctx) {
 
     this.animateGhost();
-    g_sprites.ghost1.drawWrappedCentredAt(
+
+    this.sprite.drawWrappedCentredAt(
         ctx, this.cx, this.cy, this.rotation
     );
+  /*  g_sprites.ghost3.drawWrappedCentredAt(
+        ctx, this.cx, this.cy, this.rotation
+    );*/
+
 
 
 };
