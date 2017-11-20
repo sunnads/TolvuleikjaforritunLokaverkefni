@@ -17,20 +17,13 @@ function Ghost(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-
-
-/*
-    // Diagnostics to check inheritance stuff
-    this._bulletProperty = true;
-    console.dir(this);
-*/
 }
 
 Ghost.prototype = new Entity();
 
 // HACKED-IN AUDIO (no preloading)
-Ghost.prototype.fireSound = new Audio(
-    "sounds/bulletFire.ogg");
+Ghost.prototype.dieSound = new Audio(
+    "sounds/eatGhost.mp3");
 
 // Initial, inheritable, default values
 Ghost.prototype.row = 4;
@@ -41,7 +34,7 @@ Ghost.prototype.scale = 0.15
 Ghost.prototype.isDeadNow =false;
 Ghost.prototype.movespeed = 2;
 Ghost.prototype.rotation = 0;
-Ghost.prototype.goThisway = 2;
+Ghost.prototype.goThisway = 1;
 Ghost.prototype.lastChangeRow = 0;
 Ghost.prototype.lastChangeCol = 0;
 Ghost.prototype.ghostNr = 1;
@@ -73,14 +66,6 @@ Ghost.prototype.ghostSprite = function (){
             break;
     }
 }
-
-/*
-Ghost.prototype.taketHit = function () {
-    this.kill();
-
-    // Make a noise when I am zapped by another bullet
-    //this.zappedSound.play();
-};*/
 
 // random function not in use at the moment
 Ghost.prototype.getRandom = function () {

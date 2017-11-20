@@ -26,20 +26,20 @@ function createInitialMaze() {
     openingSound.play();
     entityManager.generateMaze({
     });
-        entityManager.generatePacman({});
-        entityManager.generateGhost({
+    entityManager.generatePacman({});
+    entityManager.generateGhost({
             row: 4,
-            col: 13,
-            cx: 13 * 28,
+            col: 15,
+            cx: 15 * 28,
             cy: 4 * 28,
             ghostNr: 1,
             resetRow: 4,
             resetCol: 13,
-            resetCx: 13*28,
-            resetCy: 4*28,
+            resetCx: 13 * 28,
+            resetCy: 4 * 28,
             resetGhostNr: 1
-        });
-        entityManager.generateGhost({
+    });
+    entityManager.generateGhost({
             row: 4,
             col: 14,
             cx: 14 * 28,
@@ -50,11 +50,11 @@ function createInitialMaze() {
             resetCx: 14*28,
             resetCy: 4*28,
             resetGhostNr: 2
-        });
-        entityManager.generateGhost({
+    });
+    entityManager.generateGhost({
             row: 4,
-            col: 15,
-            cx: 15 * 28,
+            col: 16,
+            cx: 16 * 28,
             cy: 4 * 28,
             ghostNr: 3,
             resetRow: 4,
@@ -62,7 +62,19 @@ function createInitialMaze() {
             resetCx: 15*28,
             resetCy: 4*28,
             resetGhostNr: 3
-        });
+    });
+    entityManager.generateGhost({
+        row: 4,
+        col: 17,
+        cx: 17 * 28,
+        cy: 4 * 28,
+        ghostNr: 4,
+        resetRow: 4,
+        resetCol: 15,
+        resetCx: 15*28,
+        resetCy: 4*28,
+        resetGhostNr: 4
+    });
 }
 
 var openingSound = new Audio(
@@ -91,16 +103,15 @@ function updateSimulation(du) {
 
 // GAME-SPECIFIC DIAGNOSTICS
 
- /*   function ResetGame() {
-        entityManager.resetPacman();
-
-    }
-*/
+var KEY_RESET = keyCode('R');
 
     function processDiagnostics() {
+        if (eatKey(KEY_RESET)){
+            entityManager.resetPacman();
+            entityManager.resetGhosts();
+            entityManager.resetMaze();
 
-
-
+        }
     }
 
 

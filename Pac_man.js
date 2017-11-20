@@ -50,6 +50,8 @@ Pacman.prototype.dieSound = new Audio(
     "sounds/die.mp3");
 Pacman.prototype.eatingRedBullSound = new Audio(
     "sounds/eatpill.mp3");
+Pacman.prototype.eatingKristallSound = new Audio(
+    "sounds/extra_lives.mp3");
 
 Pacman.prototype.update = function (du) {
     if(g_frameCounter >=280) {
@@ -188,6 +190,8 @@ Pacman.prototype.checkKristall = function () {
     if("kr" === Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1]){
         Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1] = "x";
         this.points += 100;
+        this.lives++;
+        this.eatingKristallSound.play();
     }
 };
 
@@ -247,12 +251,11 @@ Pacman.prototype.reset = function () {
 
 
 Pacman.prototype.render = function (ctx) {
-    ctx.font = "15px Comic Sans MS";
+    ctx.font = "30px Comic Sans MS";
     ctx.fillStyle = "yellow";
     ctx.textAlign = "center";
-    ctx.fillText(this.row, 15, 50);
-    ctx.fillText(this.col, 15, 70);
-    ctx.fillText(this.points, 550, 390);
+    ctx.fillText("Lives : "+this.lives, 100, 450);
+    ctx.fillText("Points : "+this.points, 100, 490);
     this.gameOver(ctx);
     var sprite = this.mouthMove();
     sprite.scale = this.scale;
