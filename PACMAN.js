@@ -28,52 +28,56 @@ function createInitialMaze() {
     });
     entityManager.generatePacman({});
     entityManager.generateGhost({
-            row: 4,
-            col: 15,
-            cx: 15 * 28,
-            cy: 4 * 28,
+            row: 7,
+            col: 13,
+            cx: 13 * 28,
+            cy: 7 * 28,
             ghostNr: 1,
-            resetRow: 4,
+            resetRow: 7,
             resetCol: 13,
             resetCx: 13 * 28,
-            resetCy: 4 * 28,
-            resetGhostNr: 1
+            resetCy: 7 * 28,
+            resetGhostNr: 1,
+            startTimer: 300
     });
     entityManager.generateGhost({
-            row: 4,
-            col: 14,
-            cx: 14 * 28,
-            cy: 4 * 28,
+            row: 7,
+            col: 12,
+            cx: 12 * 28,
+            cy: 7 * 28,
             ghostNr: 2,
-            resetRow: 4,
-            resetCol: 14,
-            resetCx: 14*28,
-            resetCy: 4*28,
-            resetGhostNr: 2
+            resetRow: 7,
+            resetCol: 12,
+            resetCx: 12*28,
+            resetCy: 7*28,
+            resetGhostNr: 2,
+            startTimer: 330
     });
     entityManager.generateGhost({
-            row: 4,
-            col: 16,
-            cx: 16 * 28,
-            cy: 4 * 28,
+            row: 6,
+            col: 13,
+            cx: 13 * 28,
+            cy: 6 * 28,
             ghostNr: 3,
-            resetRow: 4,
-            resetCol: 15,
-            resetCx: 15*28,
-            resetCy: 4*28,
-            resetGhostNr: 3
+            resetRow: 6,
+            resetCol: 13,
+            resetCx: 13*28,
+            resetCy: 6*28,
+            resetGhostNr: 3,
+            startTimer: 360
     });
     entityManager.generateGhost({
-        row: 4,
-        col: 17,
-        cx: 17 * 28,
-        cy: 4 * 28,
+        row: 6,
+        col: 12,
+        cx: 12 * 28,
+        cy: 6 * 28,
         ghostNr: 4,
-        resetRow: 4,
-        resetCol: 15,
-        resetCx: 15*28,
-        resetCy: 4*28,
-        resetGhostNr: 4
+        resetRow: 6,
+        resetCol: 12,
+        resetCx: 12*28,
+        resetCy: 6*28,
+        resetGhostNr: 4,
+        startTimer: 390
     });
 }
 

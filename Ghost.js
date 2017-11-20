@@ -43,12 +43,30 @@ Ghost.prototype.resetCol = 0;
 Ghost.prototype.resetCx = 0;
 Ghost.prototype.resetCy = 0;
 Ghost.prototype.resetGhostNr = 0;
+Ghost.prototype.startTimer =0;
+Ghost.prototype.isStart = true;
 
 
 Ghost.prototype.update = function (du) {
-    if(g_frameCounter >=280){
+    if(g_frameCounter >=this.startTimer){
+        if(this.isStart) {
+            this.cy = 7*28;
+            this.cx = 13*28;
+            this.row = 7;
+            this.col = 13;
+            this.isStart = false;
+        }
         this.hitPacman();
         this.move(du);
+    }
+};
+
+Ghost.prototype.start =function () {
+    switch(this.ghostNr){
+        case 1: break;
+        case 2: break;
+        case 3: break;
+        case 4: break;
     }
 };
 
@@ -65,18 +83,18 @@ Ghost.prototype.ghostSprite = function (){
         case 4 : return g_sprites.ghost4
             break;
     }
-}
+};
 
 // random function not in use at the moment
 Ghost.prototype.getRandom = function () {
       return Math.floor((Math.random() * 4) + 1);
-}
+};
 
 Ghost.prototype.hitPacman = function () {
     if(entityManager._pacman[0].row === this.row && entityManager._pacman[0].col === this.col){
         entityManager._pacman[0].hitGhost();
     }
-}
+};
 
 Ghost.prototype.move = function () {
 
@@ -169,7 +187,7 @@ Ghost.prototype.changeMovement = function() {
     var nextMove = Maze.prototype.g_maze[0].mazeGrid[this.row-1][this.col-1];
     if(nextMove === 1 || nextMove === 2 || nextMove === 3||
         nextMove === 4 || nextMove === 5 || nextMove === 6 ||
-        nextMove === 7 || nextMove === 8 || nextMove === 9) {
+        nextMove === 7 || nextMove === 8 || nextMove === 9 || nextMove === 10) {
         return true;
     }
     return false;
@@ -199,8 +217,9 @@ Ghost.prototype.reset = function () {
     this.col = this.resetCol;
     this.cx = this.resetCx;
     this.cy = this.resetCy;
-    this.scale = 0.15;
+    this.goThisway = 1;
     this.ghostNr = this.resetGhostNr;
+    this.isStart = true;
 };
 
 Ghost.prototype.halt = function () {
