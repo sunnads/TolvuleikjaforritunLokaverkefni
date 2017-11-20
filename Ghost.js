@@ -48,7 +48,12 @@ Ghost.prototype.lastChangeCol = 0;
 Ghost.prototype.ghostNr = 1;
 
 Ghost.prototype.update = function (du) {
-    this.move(du);
+    if(this.ghostNr === 1) {
+        this.move(du);
+    }
+    if(this.ghostNr === 2) {
+        this.moveGhost2(du);
+    }
 };
 
 Ghost.prototype.ghostSprite = function (){
@@ -64,7 +69,7 @@ Ghost.prototype.ghostSprite = function (){
         case 4 : return g_sprites.ghost4
             break;
     }
-}
+};
 
 /*
 Ghost.prototype.taketHit = function () {
@@ -78,17 +83,109 @@ Ghost.prototype.taketHit = function () {
 Ghost.prototype.getRandom = function () {
 
       return Math.floor((Math.random() * 4) + 1);
-}
+};
 
-Ghost.prototype.hitPacman = function () {
 
-}
 
 Ghost.prototype.move = function () {
 
     // Ghost moves to Right
     if (this.goThisway === 1){
         this.cx += this.movespeed;
+        // teleportghost
+        if (this.cx >=546){
+            this.cx = 15;
+        }
+        this.cy = this.row * 28;
+        this.col = Math.round(this.cx / 28);
+        //prewent to turn 180 if changing direction
+        if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
+            var tryDirection = this.whereToMove();
+            if(2!==(tryDirection)) {
+                this.lastChangeRow = this.row;
+                this.lastChangeCol = this.col;
+                console.log(this.whereToMove());
+                this.goThisway = tryDirection;
+            }
+        }
+    }
+    // Ghost moves to Left
+    else if (this.goThisway === 2){
+        this.cx += -this.movespeed;
+        // teleport Ghost
+        if (this.cx <=15){
+            this.cx = 546;
+        }
+        this.cy = this.row * 28;
+        this.col = Math.round(this.cx / 28);
+        //prewent to turn 180 if changing direction
+        if (this.changeMovement() && (this.lastChangeRow !== this.row ||this.lastChangeCol !== this.col)) {
+            var tryDirection = this.whereToMove();
+            if(1!==(tryDirection)) {
+                this.lastChangeRow = this.row;
+                this.lastChangeCol = this.col;
+                this.goThisway = tryDirection;
+            }
+        }
+    }
+    //Ghost moves Down
+    else if (this.goThisway === 3){
+        this.cx = this.col * 28;
+        this.cy += this.movespeed;
+        // teleports ghost
+        if (this.cy >=378){
+            this.cy = 15;
+        }
+        this.row = Math.round(this.cy / 28);
+        //prewent to turn 180 if changing direction
+        if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
+            var tryDirection = this.whereToMove();
+            if(4!==(tryDirection)) {
+                this.lastChangeRow = this.row;
+                this.lastChangeCol = this.col;
+                this.goThisway = tryDirection;
+            }
+        }
+    }
+    // Ghost moves Up
+    else if (this.goThisway === 4) {
+        this.cx = this.col * 28;
+        this.cy += -this.movespeed;
+        //teleports ghost
+        if (this.cy <=15){
+            this.cy = 378;
+        }
+        this.row = Math.round(this.cy / 28);
+        //prewent to turn 180 if changing direction
+        if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
+            var tryDirection = this.whereToMove();
+            if(3!==(tryDirection)) {
+                this.lastChangeRow = this.row;
+                this.lastChangeCol = this.col;
+                this.goThisway = tryDirection;
+            }
+        }
+
+    }
+};
+
+
+Ghost.prototype.moveGhost2 = function () {
+
+    var rowPatman = entityManager._pacman[0].row;
+    var colPatman = entityManager._pacman[0].col;
+    var rowGhost2 = this.row;
+    var colGhost2 = this.col;
+    console.log("H'ERNA !!!!!!!!!!!!!!!!!!!!!!!");
+    console.log(rowPatman, colPatman, rowGhost2, colGhost2);
+
+    var checkRow = rowPatman - rowGhost2;
+    var checkcol = colPatman - colGhost2;
+
+    // Ghost moves to Right
+    if (this.goThisway === 1){
+        this.cx += this.movespeed;
+        // teleportghost
         if (this.cx >=546){
             this.cx = 15;
         }
@@ -110,6 +207,7 @@ Ghost.prototype.move = function () {
     // Ghost moves to Left
     else if (this.goThisway === 2){
         this.cx += -this.movespeed;
+        // teleport Ghost
         if (this.cx <=15){
             this.cx = 546;
         }
@@ -131,6 +229,7 @@ Ghost.prototype.move = function () {
     else if (this.goThisway === 3){
         this.cx = this.col * 28;
         this.cy += this.movespeed;
+        // teleports ghost
         if (this.cy >=378){
             this.cy = 15;
         }
@@ -151,6 +250,7 @@ Ghost.prototype.move = function () {
     else if (this.goThisway === 4) {
         this.cx = this.col * 28;
         this.cy += -this.movespeed;
+        //teleports ghost
         if (this.cy <=15){
             this.cy = 378;
         }
@@ -169,6 +269,7 @@ Ghost.prototype.move = function () {
 
     }
 };
+
 
 Ghost.prototype.changeMovement = function() {
 
@@ -191,6 +292,24 @@ Ghost.prototype.whereToMove = function () {
 };
 
 
+Ghost.prototype.findShortestWay = function () {
+    var thisNextMove = Maze.prototype.g_maze[0].mazeGrid[this.row-1][this.col-1];
+    var array = findWhereCanGo(thisNextMove);
+
+    switch(direction){
+        case 1 : return this.row +1;
+        case 2 : return this.row -1;
+        case 3 : return this.col +1;
+        case 4 : return this.col -1;
+    }
+    this.contains()
+
+    if (array.includes(1)){
+        
+    }
+
+};
+
 Ghost.prototype.canMove = function(y,x) {
 
     var nextTile = Maze.prototype.g_maze[0].mazeCode[this.row+y-1][this.col+x-1];
@@ -199,6 +318,8 @@ Ghost.prototype.canMove = function(y,x) {
     }
     return false;
 };
+
+
 
 Ghost.prototype.reset = function () {
     this.direction = 0;
