@@ -42,6 +42,7 @@ Pacman.prototype.moving = false;
 Pacman.prototype._isDeadNow =false;
 Pacman.prototype.movespeed = 3;
 Pacman.prototype.rotation = 0;
+Pacman.prototype.redBullMode = false;
 
 
 
@@ -82,6 +83,9 @@ Pacman.prototype.move = function () {
             this.direction = 1;
             this.cx = this.col*28;
             this.cy += -this.movespeed;
+            if (this.cy <=15){
+                this.cy = 378;
+            }
             this.row = Math.round(this.cy/28);
             this.moving = true;
         }
@@ -92,6 +96,9 @@ Pacman.prototype.move = function () {
             this.direction = 2;
             this.cx = this.col*28;
             this.cy += this.movespeed;
+            if (this.cy >=378){
+                this.cy = 15;
+            }
             this.row = Math.round(this.cy/28);
             this.moving = true;
         }
@@ -101,6 +108,9 @@ Pacman.prototype.move = function () {
         if(this.canMove(0,1)) {
             this.direction = 3;
             this.cx += this.movespeed;
+            if (this.cx >=546){
+                this.cx = 15;
+            }
             this.cy = this.row*28;
             this.col = Math.round(this.cx/28);
             this.moving = true;
@@ -111,12 +121,19 @@ Pacman.prototype.move = function () {
         if(this.canMove(0,-1)) {
             this.direction = 4;
             this.cx += -this.movespeed;
+            if (this.cx <=15){
+                this.cx = 546;
+            }
             this.cy = this.row*28;
             this.col = Math.round(this.cx/28);
             this.moving = true;
         }
     }
-
+};
+Pacman.prototype.hitGhost = function () {
+    if(!this.redBullMode){
+        this.kill();
+    }
 };
 
 Pacman.prototype.checkDot = function () {
@@ -144,9 +161,23 @@ Pacman.prototype.checkKristall = function () {
 };
 
 Pacman.prototype.canMove =function(y,x) {
-
-    var nextTile = Maze.prototype.g_maze[0].mazeCode[this.row+y-1][this.col+x-1];
-    if(nextTile === " " || nextTile === "x" || nextTile === "o" || nextTile === "kr") {
+    var nextTile;
+    if((this.row+y-1)<1){
+        nextTile = Maze.prototype.g_maze[0].mazeCode[Maze.prototype.g_maze[0].mazeCode.length - 1][this.col + x - 1];
+    }
+    else if((this.row+y-1)>Maze.prototype.g_maze[0].mazeCode.length-1){
+        nextTile = Maze.prototype.g_maze[0].mazeCode[0][this.col + x - 1];
+    }
+    else if((this.col+y-1)<1){
+        nextTile = Maze.prototype.g_maze[0].mazeCode[this.row + y - 1][Maze.prototype.g_maze[0].mazeCode[0].length - 1];
+    }
+    else if((this.col+y-1)>Maze.prototype.g_maze[0].mazeCode[0].length-1){
+        nextTile = Maze.prototype.g_maze[0].mazeCode[this.row + y - 1][0];
+    }
+    else {
+        nextTile = Maze.prototype.g_maze[0].mazeCode[this.row + y - 1][this.col + x - 1];
+    }
+    if (nextTile === " " || nextTile === "x" || nextTile === "o" || nextTile === "kr") {
         return true;
         console.log("canMove");
     }

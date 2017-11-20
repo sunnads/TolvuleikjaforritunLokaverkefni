@@ -27,6 +27,8 @@ function createInitialMaze() {
     });
     entityManager.generatePacman({
     });
+
+
 }
 
 // =============

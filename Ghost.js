@@ -60,7 +60,7 @@ Ghost.prototype.animateGhost = function () {
 }
 
 /*
-Chost.prototype.taketHit = function () {
+Ghost.prototype.taketHit = function () {
     this.kill();
 
     // Make a noise when I am zapped by another bullet
@@ -78,6 +78,9 @@ Ghost.prototype.move = function () {
     // Ghost moves to Right
     if (this.goThisway === 1){
         this.cx += this.movespeed;
+        if (this.cx >=546){
+            this.cx = 15;
+        }
         this.cy = this.row * 28;
         this.col = Math.round(this.cx / 28);
         console.log(this.goThisway, "gothisway gildi");
@@ -95,6 +98,9 @@ Ghost.prototype.move = function () {
     // Ghost moves to Left
     else if (this.goThisway === 2){
         this.cx += -this.movespeed;
+        if (this.cx <=15){
+            this.cx = 546;
+        }
         this.cy = this.row * 28;
         this.col = Math.round(this.cx / 28);
         console.log(this.goThisway, "gothisway gildi");
@@ -112,6 +118,9 @@ Ghost.prototype.move = function () {
     else if (this.goThisway === 3){
         this.cx = this.col * 28;
         this.cy += this.movespeed;
+        if (this.cy >=378){
+            this.cy = 15;
+        }
         this.row = Math.round(this.cy / 28);
         console.log(this.goThisway, "gothisway gildi");
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
@@ -128,6 +137,9 @@ Ghost.prototype.move = function () {
     else if (this.goThisway === 4) {
         this.cx = this.col * 28;
         this.cy += -this.movespeed;
+        if (this.cy <=15){
+            this.cy = 378;
+        }
         this.row = Math.round(this.cy / 28);
         console.log(this.goThisway, "gothisway gildi");
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
@@ -161,18 +173,6 @@ Ghost.prototype.whereToMove = function () {
     var item = array[Math.floor(Math.random()*array.length)];
 
     return item;
-};
-
-
-Ghost.prototype.findDirecPreventTurnaround = function (){
-    console.log("switch case ", this.goThisway);
-    switch(this.goThisway){
-
-        case 1 : return 2;
-        case 2 : return 1;
-        case 3 : return 4;
-        case 4 : return 3;
-    }
 };
 
 
