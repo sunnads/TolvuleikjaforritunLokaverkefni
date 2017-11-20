@@ -35,10 +35,10 @@ function createInitialMaze() {
         ghostNr : 1
     });
     entityManager.generateGhost({
-        row: 4,
-        col: 17,
-        cx : 14*28,
-        cy : 4*28,
+        row: 2,
+        col: 13,
+        cx : 13*28,
+        cy : 2*28,
         ghostNr : 2
     });
     entityManager.generateGhost({

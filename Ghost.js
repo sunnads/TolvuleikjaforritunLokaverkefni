@@ -54,6 +54,10 @@ Ghost.prototype.update = function (du) {
     if(this.ghostNr === 2) {
         this.moveGhost2(du);
     }
+    if(this.ghostNr === 3) {
+        this.move(du);
+    }
+
 };
 
 Ghost.prototype.ghostSprite = function (){
@@ -184,13 +188,13 @@ Ghost.prototype.moveGhost2 = function () {
         console.log(this.goThisway, "gothisway gildi");
         //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
-            var tryDirection = this.findShortestWay();
-            if(2!==(tryDirection)) {
+            var tryDirection2 = this.findShortestWay();
+            if(2!==(tryDirection2)) {
                 this.lastChangeRow = this.row;
                 this.lastChangeCol = this.col;
                 console.log("whereTomove test testidi í test");
-                console.log(this.whereToMove());
-                this.goThisway = tryDirection;
+                //console.log(this.whereToMove());
+                this.goThisway = tryDirection2;
             }
         }
     }
@@ -206,12 +210,14 @@ Ghost.prototype.moveGhost2 = function () {
         console.log(this.goThisway, "gothisway gildi");
         //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row ||this.lastChangeCol !== this.col)) {
-            var tryDirection = this.findShortestWay();
-            if(1!==(tryDirection)) {
+            var tryDirection3 = this.findShortestWay();
+            if(1!==(tryDirection3)) {
                 this.lastChangeRow = this.row;
                 this.lastChangeCol = this.col;
-                this.goThisway = tryDirection;
+                this.goThisway = tryDirection3;
                 console.log("If inn í ifinu  nr 22");
+                this.goThisway = 1;
+                console.log("If inn í ifinu  nr 222222");
             }
         }
     }
@@ -227,11 +233,11 @@ Ghost.prototype.moveGhost2 = function () {
         console.log(this.goThisway, "gothisway gildi");
         //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
-            var tryDirection = this.findShortestWay();
-            if(4!==(tryDirection)) {
+            var tryDirection4 = this.findShortestWay();
+            if(4!==(tryDirection4)) {
                 this.lastChangeRow = this.row;
                 this.lastChangeCol = this.col;
-                this.goThisway = tryDirection;
+                this.goThisway = tryDirection4;
                 console.log("If inn í ifinu  33");
             }
         }
@@ -248,11 +254,11 @@ Ghost.prototype.moveGhost2 = function () {
         console.log(this.goThisway, "gothisway gildi");
         //prewent to turn 180 if changing direction
         if (this.changeMovement() && (this.lastChangeRow !== this.row || this.lastChangeCol !== this.col)) {
-            var tryDirection = this.findShortestWay();
-            if(3!==(tryDirection)) {
+            var tryDirection5 = this.findShortestWay();
+            if(3!==(tryDirection5)) {
                 this.lastChangeRow = this.row;
                 this.lastChangeCol = this.col;
-                this.goThisway = tryDirection;
+                this.goThisway = tryDirection5;
                 console.log("If inn í ifinu  44");
             }
         }
@@ -279,15 +285,6 @@ Ghost.prototype.whereToMove = function () {
     var item = array[Math.floor(Math.random()*array.length)];
 
     return item;
-};
-
-Ghost.prototype.addToDirection = function (direction) {
-    switch(direction){
-        case 1 : return this.row +1;
-        case 2 : return this.row -1;
-        case 3 : return this.col +1;
-        case 4 : return this.col -1;
-    }
 };
 
 Ghost.prototype.findShortestWay = function () {
@@ -317,7 +314,7 @@ Ghost.prototype.findShortestWay = function () {
         console.log("directionright", directionRight);
         if (directionRight < checkCol ){
             console.log("En kemst ég hingað inn 1");
-
+            //this.goThisway = 1;
             return this.goThisway = 1;
         }
     }
@@ -325,6 +322,7 @@ Ghost.prototype.findShortestWay = function () {
         var directionLeft = Math.abs(colPatman - (colGhost2-1));
             if (directionLeft < checkCol ) {
                 console.log("En kemst ég hingað inn 2 ");
+                //this.goThisway = 2;
                 return this.goThisway =2;
 
             }
@@ -333,6 +331,7 @@ Ghost.prototype.findShortestWay = function () {
         var directionDown = Math.abs(rowPatman - (checkRow+1));
             if (directionDown < checkRow) {
                 console.log("En kemst ég hingað inn 3");
+                //this.goThisway = 3;
                 return this.goThisway =3;
             }
     }
@@ -340,6 +339,7 @@ Ghost.prototype.findShortestWay = function () {
         var directionUp = Math.abs(rowPatman - (checkRow - 1));
         if (directionUp < checkRow){
             console.log("En kemst ég hingað inn 4");
+            //this.goThisway = 4;
             return this.goThisway =4;
             }
     }
@@ -381,10 +381,5 @@ Ghost.prototype.render = function (ctx) {
     sprite.drawWrappedCentredAt(
         ctx, this.cx, this.cy, this.rotation
     );
-  /*  g_sprites.ghost3.drawWrappedCentredAt(
-        ctx, this.cx, this.cy, this.rotation
-    );*/
-
-
 
 };
