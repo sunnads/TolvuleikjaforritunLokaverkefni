@@ -139,7 +139,7 @@ Pacman.prototype.checkDot = function () {
 
     if(" " === Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1]){
         Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1] = "x";
-        this.points += 15;
+        this.points += 10;
     }
 };
 
@@ -221,7 +221,7 @@ Pacman.prototype.render = function (ctx) {
     ctx.textAlign = "center";
     ctx.fillText(this.row, 15, 50);
     ctx.fillText(this.col, 15, 70);
-    ctx.fillText(this.points, 580, 390);
+    ctx.fillText(this.points, 550, 390);
     var sprite = this.mouthMove();
     sprite.scale = this.scale;
     sprite.drawWrappedCentredAt(

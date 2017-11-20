@@ -99,7 +99,8 @@ Maze.prototype = new Entity();
         [0,8,0,3,0,3,0,0,3,0,0,0,0,0,5,0,3,0,7,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         // gera svona og ákveða hvaða tala segir til um hvert meigi fara
-    ]
+    ],
+        mazeDots : 106
 }
 ];
 
