@@ -152,6 +152,7 @@ var KEY_RESET = keyCode('R');
             ghost2: "images/ghost2.png",
             ghost3: "images/ghost3.png",
             ghost4: "images/ghost4.png",
+            panicGhost: "images/panicGhost1.png",
 
             tiles0: "images/tiles0.jpg",
             tiles1: "images/tiles1.jpg",
@@ -193,6 +194,7 @@ var KEY_RESET = keyCode('R');
         g_sprites.ghost2 = new Sprite(g_images.ghost2);
         g_sprites.ghost3 = new Sprite(g_images.ghost3);
         g_sprites.ghost4 = new Sprite(g_images.ghost4);
+        g_sprites.panicGhost = new Sprite(g_images.panicGhost)
 
         g_sprites.tiles0 = new Sprite(g_images.tiles0);
         g_sprites.tiles1 = new Sprite(g_images.tiles1);

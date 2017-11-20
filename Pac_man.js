@@ -163,6 +163,9 @@ Pacman.prototype.hitGhost = function () {
         this.dieSound.play();
         entityManager.resetGhosts();
     }
+    else if(this.redBullMode){
+        this.points+=200;
+    }
 };
 
 Pacman.prototype.checkDot = function () {
@@ -182,6 +185,7 @@ Pacman.prototype.checkRedBull = function () {
         this.points += 50;
         Maze.prototype.g_maze[0].mazeDots--;
         this.eatingRedBullSound.play();
+        entityManager.panicGhosts();
     }
 };
 

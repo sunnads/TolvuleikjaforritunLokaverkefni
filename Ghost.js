@@ -52,6 +52,8 @@ Ghost.prototype.resetCy = 0;
 Ghost.prototype.resetGhostNr = 0;
 Ghost.prototype.startTimer =0;
 Ghost.prototype.isStart = true;
+Ghost.prototype.panicMode = false;
+Ghost.prototype.panicTimer = 0;
 
 
 Ghost.prototype.update = function (du) {
@@ -63,23 +65,19 @@ Ghost.prototype.update = function (du) {
             this.col = 13;
             this.isStart = false;
         }
+        if(g_frameCounter >= this.panicTimer+400){
+            this.panicMode=false;
+        }
         this.hitPacman();
         this.move(du);
     }
 };
 
-Ghost.prototype.start =function () {
-    switch(this.ghostNr){
-        case 1: break;
-        case 2: break;
-        case 3: break;
-        case 4: break;
-    }
-};
-
 Ghost.prototype.ghostSprite = function (){
 
-    // Ghost.prototype.ghostNr = 1;
+    if(this.panicMode){
+        return g_sprites.panicGhost;
+    }else{
     switch(this.ghostNr) {
         case 1 : return g_sprites.ghost1
             break;
@@ -89,6 +87,7 @@ Ghost.prototype.ghostSprite = function (){
             break;
         case 4 : return g_sprites.ghost4
             break;
+    }
     }
 };
 
@@ -100,9 +99,20 @@ Ghost.prototype.getRandom = function () {
 
 Ghost.prototype.hitPacman = function () {
     if(entityManager._pacman[0].row === this.row && entityManager._pacman[0].col === this.col){
-        entityManager._pacman[0].hitGhost();
+        if(this.panicMode){
+            this.reset();
+        }
+        else {
+            entityManager._pacman[0].hitGhost();
+        }
     }
 };
+
+Ghost.prototype.goPanicMode = function () {
+    this.panicMode = true;
+    this.panicTimer = g_frameCounter;
+
+}
 
 Ghost.prototype.move = function () {
 

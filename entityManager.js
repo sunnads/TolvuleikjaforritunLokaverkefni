@@ -115,6 +115,10 @@ haltPacman: function () {
     this._forEachOf(this._pacman,Pacman.prototype.halt)
 },
 
+panicGhosts: function () {
+    this._forEachOf(this._ghost,Ghost.prototype.goPanicMode)
+},
+
 update: function(du) {
 
         for (var c = 0; c < this._categories.length; ++c) {
