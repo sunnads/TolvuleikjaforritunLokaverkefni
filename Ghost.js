@@ -196,8 +196,9 @@ Ghost.prototype.move = function () {
     }
 };
 
-
+/// did not work out we tried pathfinding
 Ghost.prototype.moveGhost2 = function () {
+    // can't find this.goThisway
     console.log("gothisway í move ", this.goThisway );
     // Ghost moves to Right
     if (this.goThisway === 1){
