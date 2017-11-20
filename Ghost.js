@@ -51,7 +51,7 @@ Ghost.prototype.lastChangeCol = 0;
 
 
 Ghost.prototype.update = function (du) {
-    this.move();
+    this.move(du);
 
 };
 
@@ -66,7 +66,7 @@ Ghost.prototype.taketHit = function () {
     // Make a noise when I am zapped by another bullet
     //this.zappedSound.play();
 };*/
-
+        
 Ghost.prototype.getRandom = function () {
 
       return Math.floor((Math.random() * 4) + 1);
