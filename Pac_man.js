@@ -45,8 +45,8 @@ Pacman.prototype.rotation = 0;
 
 
 
-Pacman.prototype.update = function () {
-    this.move();
+Pacman.prototype.update = function (du) {
+    this.move(du);
     if(this.moving){
     if(g_frameCounter%5 ===0) {
         if (this.animationstate < 3) {
@@ -63,7 +63,6 @@ Pacman.prototype.update = function () {
     this.moving = false;
 };
 
-
 Pacman.prototype.animatePacman = function () {
     switch(this.direction){
         case 1 : this.rotation = 4.5; break;
@@ -72,7 +71,7 @@ Pacman.prototype.animatePacman = function () {
         case 4 : this.rotation = 3; break;
     }
 
-}
+};
 
 Pacman.prototype.move = function () {
 
