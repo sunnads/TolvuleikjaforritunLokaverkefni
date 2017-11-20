@@ -75,16 +75,15 @@ function updateSimulation(du) {
 
 // GAME-SPECIFIC DIAGNOSTICS
 
-    var KEY_HALT = keyCode('H');
-    var KEY_RESET = keyCode('R');
+ /*   function ResetGame() {
+        entityManager.resetPacman();
 
+    }
+*/
 
     function processDiagnostics() {
 
 
-        if (eatKey(KEY_HALT)) entityManager.haltGame();
-
-        if (eatKey(KEY_RESET)) entityManager.resetGame();
 
     }
 

@@ -17,7 +17,6 @@ function Pacman(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-    this.sprite = this.sprite || g_sprites.patman1;
 
 }
 
@@ -39,10 +38,11 @@ Pacman.prototype.cx = 12*28;
 Pacman.prototype.cy = 9*28;
 Pacman.prototype.scale = 0.15;
 Pacman.prototype.moving = false;
-Pacman.prototype._isDeadNow =false;
+Pacman.prototype._isDeadNow = false;
 Pacman.prototype.movespeed = 3;
 Pacman.prototype.rotation = 0;
 Pacman.prototype.redBullMode = false;
+Pacman.prototype.lives = 2;
 
 
 
@@ -129,9 +129,27 @@ Pacman.prototype.move = function (du) {
         }
     }
 };
+
+Pacman.prototype.halt = function () {
+    this.movespeed = 0;
+
+};
+
+Pacman.prototype.gameOver = function (ctx) {
+    if(this.lives<=0){
+        ctx.font = "50px Comic Sans MS";
+        ctx.fillStyle = "yellow";
+        ctx.textAlign = "center";
+        ctx.fillText("GAME OVER", 300, 200);
+        this.halt();
+        entityManager.haltGhost();
+    }
+};
+
 Pacman.prototype.hitGhost = function () {
     if(!this.redBullMode){
-        this.kill();
+        entityManager.resetPacman();
+        this.lives--;
     }
 };
 
@@ -205,14 +223,13 @@ Pacman.prototype.mouthMove = function () {
 
 
 Pacman.prototype.reset = function () {
-    this.direction = 0;
-    this.row = 12;
-    this.col = 9;
+    this.row = 9;
+    this.col = 12;
     this.cx = 12*28;
     this.cy = 9*28;
     this.scale = 0.15;
     this.moving = false;
-    this._isDeadNow =false;
+    //this.halt();
 
 };
 
@@ -224,6 +241,7 @@ Pacman.prototype.render = function (ctx) {
     ctx.fillText(this.row, 15, 50);
     ctx.fillText(this.col, 15, 70);
     ctx.fillText(this.points, 550, 390);
+    this.gameOver(ctx);
     var sprite = this.mouthMove();
     sprite.scale = this.scale;
     sprite.drawWrappedCentredAt(

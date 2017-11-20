@@ -48,6 +48,7 @@ Ghost.prototype.lastChangeCol = 0;
 Ghost.prototype.ghostNr = 1;
 
 Ghost.prototype.update = function (du) {
+    this.hitPacman();
     this.move(du);
 };
 
@@ -76,12 +77,13 @@ Ghost.prototype.taketHit = function () {
 
 // random function not in use at the moment
 Ghost.prototype.getRandom = function () {
-
       return Math.floor((Math.random() * 4) + 1);
 }
 
 Ghost.prototype.hitPacman = function () {
-
+    if(entityManager._pacman[0].row === this.row && entityManager._pacman[0].col === this.col){
+        entityManager._pacman[0].hitGhost();
+    }
 }
 
 Ghost.prototype.move = function () {
@@ -209,19 +211,19 @@ Ghost.prototype.reset = function () {
     this.scale = 0.15;
     this.moving = false;
     this._isDeadNow =false;
+};
 
+Ghost.prototype.halt = function () {
+    this.movespeed =0;
 };
 
 Ghost.prototype.render = function (ctx) {
-
 
     var sprite = this.ghostSprite();
     sprite.drawWrappedCentredAt(
         ctx, this.cx, this.cy, this.rotation
     );
-  /*  g_sprites.ghost3.drawWrappedCentredAt(
-        ctx, this.cx, this.cy, this.rotation
-    );*/
+
 
 
 

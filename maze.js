@@ -24,10 +24,8 @@ function Maze(descr) {
 
 Maze.prototype = new Entity();
 
- Maze.prototype.mazeTiles = [],[];
  Maze.prototype.cx = 0;
  Maze.prototype.cy = 0;
-
  Maze.prototype.g_maze = [
     {
     //drawing the maze
@@ -171,16 +169,12 @@ function buildMaze(k,ctx) {
         for(var c = 0; c<k.g_maze[0].mazeCode[r].length; c++) {  // columns
             k.cx += 28;
             var sprite = findTileSprite(k.g_maze[0].mazeCode[r][c]);
-            //console.log(sprite);
-            //console.log(k.g_maze[0].mazeCode[r][c]);
-            //console.log("cx: "+k.cx+" cy: "+k.cy+" r:"+r+" c:"+c);
             sprite.drawWrappedCentredAt(ctx, k.cx, k.cy, k.rotation);
-            //k.mazeTiles.push(sprite);
         }
     }
     k.cy = 0;
     k.cx = 0;
-}
+};
 
 /*
 Maze.prototype.dotsEaten =function (k) {
@@ -201,35 +195,29 @@ Maze.prototype.winLevel = function (ctx) {
         ctx.fillStyle = "yellow";
         ctx.textAlign = "center";
         ctx.fillText("YOU WIN", 300, 200);
+        entityManager.haltPacman();
+        entityManager.haltGhost();
     }
-}
+};
 
 Maze.prototype.createKristall = function (k) {
     if(g_frameCounter%200 ===0){
         k.g_maze[0].mazeCode[8][11] = "kr";
         }
-    }
+    };
 
-Maze.prototype.update = function (du) {
+Maze.prototype.update = function () {
     this.createKristall(this);
+
+};
+
+Maze.prototype.reset = function () {
+    this.cx = 0;
+    this.cy = 0;
 };
 
 Maze.prototype.render = function (ctx) {
-/*
-    for(var r = 0; r<this.g_maze[0].mazeCode.length; r++){ // rows
-        this.cy += 28;
-        this.cx = 0;
-        for(var c = 0; c<this.g_maze[0].mazeCode[r].length; c++) {  // columns
-            this.cx += 28;
-            var sprite = findTileSprite(this.g_maze[0].mazeCode[r][c]);
-            sprite.drawWrappedCentredAt(ctx, this.cx, this.cy, this.rotation);
-            this.mazeTiles.push(sprite);
-        }
-    }
-    this.cy = 0;
-    this.cx = 0;
 
-*/
     buildMaze(this,ctx);
     this.winLevel(ctx);
 };

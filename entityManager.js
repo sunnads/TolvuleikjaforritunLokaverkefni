@@ -28,8 +28,6 @@ var entityManager = {
 // "PRIVATE" DATA
 
 _ghost  : [],
-//_pellets : [],  // food for pacman
-//_pills   : [],  // power up pills for pacman
 _pacman  : [],
 _maze : [],
 
@@ -41,11 +39,7 @@ _generateMaze : function() {
 },
 
 _generateGhost : function() {
-    /*var i,
-        NUM_GHOSTS = 4;
 
-    for (i = 0; i < NUM_GHOSTS; ++i) {
-    }*/
     this.generateGhost();
 },
 
@@ -81,8 +75,8 @@ deferredSetup : function () {
 
 
 init: function() {
-    this._generateMaze();
-    this._generatePacman();
+    //this._generateMaze();
+    //this._generatePacman();
     //this._generateGhost();
 
 },
@@ -101,6 +95,26 @@ generatePacman : function(descr) {
     this._pacman.push(new Pacman(descr));
 
 },
+
+resetPacman: function () {
+    this._forEachOf(this._pacman,Pacman.prototype.reset)
+},
+
+resetGhosts: function () {
+    this._forEachOf(this._ghost,Ghost.prototype.reset)
+},
+
+resetMaze: function () {
+    this._forEachOf(this._maze,Maze.prototype.reset)
+},
+
+haltGhost: function () {
+    this._forEachOf(this._ghost,Ghost.prototype.halt)
+},
+haltPacman: function () {
+    this._forEachOf(this._pacman,Pacman.prototype.halt)
+},
+
 update: function(du) {
 
         for (var c = 0; c < this._categories.length; ++c) {
