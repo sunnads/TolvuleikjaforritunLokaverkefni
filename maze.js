@@ -195,6 +195,15 @@ Maze.prototype.dotsEaten =function (k) {
 };
 */
 
+Maze.prototype.winLevel = function (ctx) {
+    if(this.g_maze[0].mazeDots<=0){
+        ctx.font = "50px Comic Sans MS";
+        ctx.fillStyle = "yellow";
+        ctx.textAlign = "center";
+        ctx.fillText("YOU WIN", 300, 200);
+    }
+}
+
 Maze.prototype.createKristall = function (k) {
     if(g_frameCounter%200 ===0){
         k.g_maze[0].mazeCode[8][11] = "kr";
@@ -222,4 +231,5 @@ Maze.prototype.render = function (ctx) {
 
 */
     buildMaze(this,ctx);
+    this.winLevel(ctx);
 };

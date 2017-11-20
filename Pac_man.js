@@ -74,14 +74,14 @@ Pacman.prototype.animatePacman = function () {
 
 };
 
-Pacman.prototype.move = function () {
+Pacman.prototype.move = function (du) {
 
     if(keys[this.KEY_UP]){
 
         if(this.canMove(-1,0)) {
             this.direction = 1;
             this.cx = this.col*28;
-            this.cy += -this.movespeed;
+            this.cy += -this.movespeed*du;
             if (this.cy <=15){
                 this.cy = 378;
             }
@@ -94,7 +94,7 @@ Pacman.prototype.move = function () {
         if(this.canMove(1,0)) {
             this.direction = 2;
             this.cx = this.col*28;
-            this.cy += this.movespeed;
+            this.cy += this.movespeed*du;
             if (this.cy >=378){
                 this.cy = 15;
             }
@@ -106,7 +106,7 @@ Pacman.prototype.move = function () {
 
         if(this.canMove(0,1)) {
             this.direction = 3;
-            this.cx += this.movespeed;
+            this.cx += this.movespeed*du;
             if (this.cx >=546){
                 this.cx = 15;
             }
@@ -119,7 +119,7 @@ Pacman.prototype.move = function () {
         this.direction = 4;
         if(this.canMove(0,-1)) {
             this.direction = 4;
-            this.cx += -this.movespeed;
+            this.cx += -this.movespeed*du;
             if (this.cx <=15){
                 this.cx = 546;
             }
@@ -140,6 +140,7 @@ Pacman.prototype.checkDot = function () {
     if(" " === Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1]){
         Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1] = "x";
         this.points += 10;
+        Maze.prototype.g_maze[0].mazeDots--;
     }
 };
 
@@ -148,6 +149,7 @@ Pacman.prototype.checkRedBull = function () {
     if("o" === Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1]){
         Maze.prototype.g_maze[0].mazeCode[this.row-1][this.col-1] = "x";
         this.points += 50;
+        Maze.prototype.g_maze[0].mazeDots--;
     }
 };
 
@@ -167,10 +169,10 @@ Pacman.prototype.canMove =function(y,x) {
     else if((this.row+y-1)>Maze.prototype.g_maze[0].mazeCode.length-1){
         nextTile = Maze.prototype.g_maze[0].mazeCode[0][this.col + x - 1];
     }
-    else if((this.col+y-1)<1){
+    else if((this.col+x-1)<1){
         nextTile = Maze.prototype.g_maze[0].mazeCode[this.row + y - 1][Maze.prototype.g_maze[0].mazeCode[0].length - 1];
     }
-    else if((this.col+y-1)>Maze.prototype.g_maze[0].mazeCode[0].length-1){
+    else if((this.col+x-1)>Maze.prototype.g_maze[0].mazeCode[0].length-1){
         nextTile = Maze.prototype.g_maze[0].mazeCode[this.row + y - 1][0];
     }
     else {
