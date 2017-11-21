@@ -255,11 +255,17 @@ Pacman.prototype.reset = function () {
 
 
 Pacman.prototype.render = function (ctx) {
-    ctx.font = "30px Comic Sans MS";
-    ctx.fillStyle = "yellow";
-    ctx.textAlign = "center";
-    ctx.fillText("Lives : "+this.lives, 100, 450);
-    ctx.fillText("Points : "+this.points, 100, 490);
+    ctx.font = "23px Comic Sans MS";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "left";
+    ctx.fillText("Lives : "+this.lives, 250, 445);
+    ctx.fillText("Points : "+this.points, 250, 475);
+    ctx.font = "13px Comic Sans MS";
+    ctx.fillText("How to play :", 20, 510);
+    ctx.fillText("Use A,S,D,W keys to move Pat man.", 20, 530);
+    ctx.fillText("Eat all the dots to get points, but watch out for the evil Ghost student ", 20, 550);
+    ctx.fillText("or they will eat you to get better grades. Drink a redbull to attack students", 20, 570);
+    ctx.fillText("and eat them. Snack on some delicious Kristall to get extra points.", 20, 590);
     this.gameOver(ctx);
     var sprite = this.mouthMove();
     sprite.scale = this.scale;
