@@ -1,4 +1,14 @@
-# Patman
-Tölvuleikjaforritun_hópaverkefni 
+# Tölvuleikjaforritun lokaverkefni
 
-Group 5A- pacman 
+Lokaverkefni gert í Tölvuleikjaforritun við Háskóla Íslands
+
+
+# Patman
+
+meðlimir í verkefninu:
+
+Alexander Freyr Sveinsson,
+
+Brynja Pálína Sigurgeirsdóttir, 
+
+Sunna Dröfn Sigfúsdóttir
