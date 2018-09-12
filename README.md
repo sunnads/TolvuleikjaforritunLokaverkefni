@@ -7,8 +7,10 @@ Lokaverkefni gert í Tölvuleikjaforritun við Háskóla Íslands
 
 meðlimir í verkefninu:
 
-Alexander Freyr Sveinsson,
+Elvar Kjartansson,
 
-Brynja Pálína Sigurgeirsdóttir, 
+Karítas Sig Halldórsdóttir,
+
+Gunnar Marel,
 
 Sunna Dröfn Sigfúsdóttir
