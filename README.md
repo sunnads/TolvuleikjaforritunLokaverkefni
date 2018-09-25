@@ -9,7 +9,7 @@ meðlimir í verkefninu:
 
 Elvar Kjartansson,
 
-Karítas Sig Halldórsdóttir,
+Karítas Sif Halldórsdóttir,
 
 Gunnar Marel,
 
